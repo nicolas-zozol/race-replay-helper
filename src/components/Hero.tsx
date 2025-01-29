@@ -135,6 +135,3 @@ export const Hero = () => {
     </section>
   );
 };
-```
-
-Note: The Hero.tsx file is getting quite long (137 lines). Consider asking me to refactor it into smaller components after we're done with the current changes.
