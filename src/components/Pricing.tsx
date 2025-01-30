@@ -1,4 +1,10 @@
-import { Check } from "lucide-react";
+import { Check, Info } from "lucide-react";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 export const Pricing = () => {
   const plans = [
@@ -23,12 +29,39 @@ export const Pricing = () => {
         "One-month free trial",
         "Full season coverage",
         "SMS & Telegram support",
-        "Safe for kids mode",
-        "Real-time updates",
-        "Multiple racing series",
       ],
       cta: "Best Value - Get Started",
       popular: true,
+    },
+    {
+      name: "Season Pro",
+      price: "$55",
+      period: "/season",
+      features: [
+        {
+          text: "All Season Pass features",
+          info: "Includes full season coverage, SMS & Telegram support, and one-month free trial",
+        },
+        {
+          text: "Safe for kids mode",
+          info: "Filter out inappropriate content and language for a family-friendly experience",
+        },
+        {
+          text: "Don't wait option",
+          info: "Get immediate notifications for race highlights without delay",
+        },
+        {
+          text: "Choose other competitions",
+          info: "Access to F2, F3, and other racing series notifications",
+        },
+        {
+          text: "Boring moments to skip",
+          info: "AI-powered detection of less exciting race segments to help you focus on the action",
+        },
+      ],
+      cta: "Coming Soon - Included in Season Pass during Launch",
+      popular: false,
+      disabled: true,
     },
   ];
 
@@ -38,7 +71,7 @@ export const Pricing = () => {
         <h2 className="text-3xl md:text-4xl font-bold text-center text-secondary mb-16">
           Simple, Transparent Pricing
         </h2>
-        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
           {plans.map((plan, index) => (
             <div
               key={index}
@@ -61,15 +94,36 @@ export const Pricing = () => {
                 {plan.features.map((feature, i) => (
                   <li key={i} className="flex items-center text-muted">
                     <Check className="w-5 h-5 text-primary mr-2" />
-                    {feature}
+                    {typeof feature === "string" ? (
+                      feature
+                    ) : (
+                      <div className="flex items-center gap-2">
+                        {feature.text}
+                        <TooltipProvider>
+                          <Tooltip>
+                            <TooltipTrigger>
+                              <Info className="w-4 h-4 text-muted hover:text-primary transition-colors" />
+                            </TooltipTrigger>
+                            <TooltipContent>
+                              <p className="max-w-xs">{feature.info}</p>
+                            </TooltipContent>
+                          </Tooltip>
+                        </TooltipProvider>
+                      </div>
+                    )}
                   </li>
                 ))}
               </ul>
-              <button className={`w-full py-4 rounded-lg font-semibold transition-colors ${
-                plan.popular
-                  ? "bg-primary hover:bg-primary-hover text-white"
-                  : "border-2 border-primary text-primary hover:bg-primary hover:text-white"
-              }`}>
+              <button
+                className={`w-full py-4 rounded-lg font-semibold transition-colors ${
+                  plan.popular
+                    ? "bg-primary hover:bg-primary-hover text-white"
+                    : plan.disabled
+                    ? "bg-gray-100 text-gray-500 cursor-not-allowed"
+                    : "border-2 border-primary text-primary hover:bg-primary hover:text-white"
+                }`}
+                disabled={plan.disabled}
+              >
                 {plan.cta}
               </button>
             </div>
