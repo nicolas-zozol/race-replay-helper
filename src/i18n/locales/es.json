@@ -1,0 +1,26 @@
+{
+  "hero": {
+    "title": "Sáltate las carreras aburridas.",
+    "subtitle": "¡Te diremos si vale la pena verla!",
+    "description": "Recibe calificaciones instantáneas de carreras por SMS o notificación de Telegram. Nunca más pierdas tiempo en una carrera aburrida.",
+    "sms": "Regístrate por SMS",
+    "telegram": "Notificaciones de Telegram",
+    "email": "Actualizaciones por email",
+    "privacy": "Tus datos están seguros y nunca serán compartidos",
+    "trial": "¡La prueba gratuita comienza con la nueva temporada!"
+  },
+  "header": {
+    "signIn": "Iniciar Sesión",
+    "signUp": "Registrarse",
+    "signOut": "Cerrar Sesión"
+  },
+  "auth": {
+    "emailPlaceholder": "Ingresa tu email",
+    "phonePlaceholder": "Ingresa tu número de teléfono",
+    "telegramPlaceholder": "@tuusuariotelegram",
+    "continueWithGoogle": "Continuar con Google",
+    "orContinueWith": "O continuar con",
+    "register": "Registrarse - Comenzar prueba gratuita",
+    "dataSecure": "🔒 Tu información está segura y nunca será compartida"
+  }
+}

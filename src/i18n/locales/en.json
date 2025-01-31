@@ -1,0 +1,26 @@
+{
+  "hero": {
+    "title": "Skip the boring races.",
+    "subtitle": "We'll tell you if it's worth the replay!",
+    "description": "Get instant race ratings via SMS or Telegram notification. Never waste time on a dull race again.",
+    "sms": "Sign up for SMS",
+    "telegram": "Get Telegram notifications",
+    "email": "Email updates",
+    "privacy": "Your data is secure and will never be shared",
+    "trial": "Free trial starts with the new season!"
+  },
+  "header": {
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "signOut": "Sign Out"
+  },
+  "auth": {
+    "emailPlaceholder": "Enter your email",
+    "phonePlaceholder": "Enter your phone number",
+    "telegramPlaceholder": "@yourtelegramhandle",
+    "continueWithGoogle": "Continue with Google",
+    "orContinueWith": "Or continue with",
+    "register": "Register - Start Free Trial",
+    "dataSecure": "🔒 Your information is secure and will never be shared"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "hero": {
+    "title": "Pule as corridas chatas.",
+    "subtitle": "Nós te diremos se vale a pena rever!",
+    "description": "Receba avaliações instantâneas das corridas via SMS ou notificação do Telegram. Nunca mais perca tempo com uma corrida chata.",
+    "sms": "Cadastre-se por SMS",
+    "telegram": "Notificações do Telegram",
+    "email": "Atualizações por email",
+    "privacy": "Seus dados estão seguros e nunca serão compartilhados",
+    "trial": "O teste gratuito começa com a nova temporada!"
+  },
+  "header": {
+    "signIn": "Entrar",
+    "signUp": "Cadastrar",
+    "signOut": "Sair"
+  },
+  "auth": {
+    "emailPlaceholder": "Digite seu email",
+    "phonePlaceholder": "Digite seu número de telefone",
+    "telegramPlaceholder": "@seuusuariotelegram",
+    "continueWithGoogle": "Continuar com Google",
+    "orContinueWith": "Ou continuar com",
+    "register": "Registrar - Começar teste gratuito",
+    "dataSecure": "🔒 Suas informações estão seguras e nunca serão compartilhadas"
+  }
+}

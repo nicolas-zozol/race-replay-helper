@@ -1,0 +1,26 @@
+{
+  "hero": {
+    "title": "跳过无聊的比赛。",
+    "subtitle": "我们会告诉你是否值得回放！",
+    "description": "通过短信或Telegram通知获取即时比赛评分。不要再浪费时间在无聊的比赛上。",
+    "sms": "注册短信服务",
+    "telegram": "获取Telegram通知",
+    "email": "邮件更新",
+    "privacy": "您的数据安全且永远不会被分享",
+    "trial": "免费试用从新赛季开始！"
+  },
+  "header": {
+    "signIn": "登录",
+    "signUp": "注册",
+    "signOut": "退出登录"
+  },
+  "auth": {
+    "emailPlaceholder": "输入您的邮箱",
+    "phonePlaceholder": "输入您的电话号码",
+    "telegramPlaceholder": "@您的Telegram用户名",
+    "continueWithGoogle": "使用Google继续",
+    "orContinueWith": "或继续使用",
+    "register": "注册 - 开始免费试用",
+    "dataSecure": "🔒 您的信息安全且永远不会被分享"
+  }
+}

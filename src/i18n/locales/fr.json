@@ -1,0 +1,26 @@
+{
+  "hero": {
+    "title": "Évitez les courses ennuyeuses.",
+    "subtitle": "On vous dira si ça vaut le coup de revoir !",
+    "description": "Recevez les évaluations instantanées des courses par SMS ou notification Telegram. Ne perdez plus jamais de temps sur une course ennuyeuse.",
+    "sms": "Inscription par SMS",
+    "telegram": "Notifications Telegram",
+    "email": "Mises à jour par email",
+    "privacy": "Vos données sont sécurisées et ne seront jamais partagées",
+    "trial": "L'essai gratuit commence avec la nouvelle saison !"
+  },
+  "header": {
+    "signIn": "Connexion",
+    "signUp": "Inscription",
+    "signOut": "Déconnexion"
+  },
+  "auth": {
+    "emailPlaceholder": "Entrez votre email",
+    "phonePlaceholder": "Entrez votre numéro de téléphone",
+    "telegramPlaceholder": "@votreidentifianttelegram",
+    "continueWithGoogle": "Continuer avec Google",
+    "orContinueWith": "Ou continuer avec",
+    "register": "S'inscrire - Commencer l'essai gratuit",
+    "dataSecure": "🔒 Vos informations sont sécurisées et ne seront jamais partagées"
+  }
+}
