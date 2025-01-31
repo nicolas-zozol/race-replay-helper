@@ -2,7 +2,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import Index from "./pages/Index";
@@ -13,6 +13,7 @@ import NotFound from "./pages/NotFound";
 import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
 import { Footer } from "./components/Footer";
+import { Header } from "./components/Header";
 
 const queryClient = new QueryClient();
 
@@ -47,15 +48,10 @@ const App = () => {
         <Toaster />
         <Sonner />
         <BrowserRouter>
+          <Header session={session} />
           <Routes>
-            <Route
-              path="/"
-              element={session ? <Index /> : <Navigate to="/auth" replace />}
-            />
-            <Route
-              path="/auth"
-              element={!session ? <Auth /> : <Navigate to="/" replace />}
-            />
+            <Route path="/" element={<Index />} />
+            <Route path="/auth" element={<Auth />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/privacy" element={<Privacy />} />

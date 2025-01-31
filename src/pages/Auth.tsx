@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -12,6 +12,8 @@ const Auth = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { toast } = useToast();
+  const [searchParams] = useSearchParams();
+  const mode = searchParams.get("mode") || "signin";
 
   const handleEmailLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -63,8 +65,12 @@ const Auth = () => {
     <div className="min-h-screen flex items-center justify-center bg-background p-4">
       <Card className="w-full max-w-md">
         <CardHeader>
-          <CardTitle>Welcome to Race Ratings</CardTitle>
-          <CardDescription>Sign in to get race updates and manage your preferences</CardDescription>
+          <CardTitle>{mode === "signin" ? "Welcome Back" : "Create Account"}</CardTitle>
+          <CardDescription>
+            {mode === "signin" 
+              ? "Sign in to access your race updates and preferences" 
+              : "Sign up to get started with Race Ratings"}
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <Tabs defaultValue="email">
@@ -112,7 +118,11 @@ const Auth = () => {
           </Tabs>
         </CardContent>
         <CardFooter className="flex justify-center text-sm text-muted-foreground">
-          By signing in, you agree to our Terms of Service and Privacy Policy
+          {mode === "signin" ? (
+            <p>Don't have an account? <Link to="/auth?mode=signup" className="text-primary hover:underline">Sign up</Link></p>
+          ) : (
+            <p>Already have an account? <Link to="/auth?mode=signin" className="text-primary hover:underline">Sign in</Link></p>
+          )}
         </CardFooter>
       </Card>
     </div>
