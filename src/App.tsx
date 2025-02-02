@@ -14,6 +14,7 @@ import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
 import { Footer } from "./components/Footer";
 import { Header } from "./components/Header";
+import { SEO } from "./components/SEO";
 
 const queryClient = new QueryClient();
 
@@ -48,6 +49,7 @@ const App = () => {
         <Toaster />
         <Sonner />
         <BrowserRouter>
+          <SEO />
           <Header session={session} />
           <Routes>
             <Route path="/" element={<Index />} />
