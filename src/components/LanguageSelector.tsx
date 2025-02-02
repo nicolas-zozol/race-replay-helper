@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next';
+import Cookies from 'js-cookie';
 import {
   Select,
   SelectContent,
@@ -18,13 +19,21 @@ export const LanguageSelector = () => {
     { code: 'pt', name: 'Português' }
   ];
 
+  const handleLanguageChange = (value: string) => {
+    i18n.changeLanguage(value);
+    Cookies.set('i18next', value, { expires: 365 }); // Cookie expires in 1 year
+  };
+
+  // Find current language name for display
+  const currentLanguage = languages.find(lang => lang.code === i18n.language);
+
   return (
     <Select
       value={i18n.language}
-      onValueChange={(value) => i18n.changeLanguage(value)}
+      onValueChange={handleLanguageChange}
     >
       <SelectTrigger className="w-[140px]">
-        <SelectValue />
+        <SelectValue placeholder={currentLanguage?.name || 'Select language'} />
       </SelectTrigger>
       <SelectContent>
         {languages.map((lang) => (
