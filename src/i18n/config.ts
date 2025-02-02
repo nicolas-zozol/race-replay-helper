@@ -35,8 +35,7 @@ i18n
     fallbackLng: 'en',
     detection: {
       order: ['cookie', 'navigator'],
-      caches: ['cookie'],
-      cookieName: LANGUAGE_COOKIE_KEY,
+      caches: ['cookie']
     },
     interpolation: {
       escapeValue: false,
