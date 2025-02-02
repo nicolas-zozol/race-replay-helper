@@ -24,6 +24,7 @@ export const SEO = () => {
     const hrefLangTags = document.querySelectorAll('link[rel="alternate"][hreflang]');
     hrefLangTags.forEach(tag => {
       if (tag instanceof HTMLLinkElement) {
+        const lang = tag.getAttribute('hreflang');
         tag.href = `${baseUrl}${canonicalPath}`;
       }
     });
