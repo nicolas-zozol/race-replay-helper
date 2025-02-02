@@ -3,24 +3,170 @@
     "title": "Sáltate las carreras aburridas.",
     "subtitle": "¡Te diremos si vale la pena verla!",
     "description": "Recibe calificaciones instantáneas de carreras por SMS o notificación de Telegram. Nunca más pierdas tiempo en una carrera aburrida.",
-    "sms": "Regístrate por SMS",
-    "telegram": "Notificaciones de Telegram",
-    "email": "Actualizaciones por email",
-    "privacy": "Tus datos están seguros y nunca serán compartidos",
-    "trial": "¡La prueba gratuita comienza con la nueva temporada!"
+    "sms": {
+      "button": "Regístrate por SMS",
+      "title": "Regístrate para actualizaciones por SMS",
+      "description": "Recibe calificaciones de carreras en tu teléfono. ¡La prueba gratuita comienza con la nueva temporada!",
+      "phonePlaceholder": "Ingresa tu número de teléfono",
+      "emailPlaceholder": "Ingresa tu email (requerido)",
+      "continue": "Continuar",
+      "register": "Registrarse - Comenzar prueba gratuita",
+      "privacy": "🔒 Tus datos están encriptados y nunca se comparten."
+    },
+    "telegram": {
+      "button": "Notificaciones de Telegram",
+      "title": "Conéctate vía Telegram",
+      "description": "Recibe actualizaciones instantáneas en Telegram. ¡La prueba gratuita comienza con la nueva temporada!",
+      "handlePlaceholder": "@tuusuariotelegram",
+      "emailPlaceholder": "Ingresa tu email (requerido)",
+      "continue": "Continuar",
+      "register": "Registrarse - Comenzar prueba gratuita",
+      "privacy": "🔒 Tu información está segura y nunca será compartida."
+    },
+    "email": {
+      "button": "Actualizaciones por email",
+      "title": "Regístrate para actualizaciones por email",
+      "description": "Recibe calificaciones de carreras directamente en tu bandeja de entrada.",
+      "placeholder": "Ingresa tu email",
+      "subscribe": "Suscribirse",
+      "privacy": "🔒 Nunca compartimos tu email y puedes cancelar cuando quieras."
+    },
+    "auth": {
+      "continueWithGoogle": "Continuar con Google",
+      "orContinueWith": "O continuar con"
+    }
   },
   "header": {
     "signIn": "Iniciar Sesión",
     "signUp": "Registrarse",
     "signOut": "Cerrar Sesión"
   },
-  "auth": {
-    "emailPlaceholder": "Ingresa tu email",
-    "phonePlaceholder": "Ingresa tu número de teléfono",
-    "telegramPlaceholder": "@tuusuariotelegram",
-    "continueWithGoogle": "Continuar con Google",
-    "orContinueWith": "O continuar con",
-    "register": "Registrarse - Comenzar prueba gratuita",
-    "dataSecure": "🔒 Tu información está segura y nunca será compartida"
+  "howItWorks": {
+    "title": "Cómo funciona",
+    "steps": {
+      "community": {
+        "title": "Nuestra comunidad califica la carrera",
+        "description": "Verdaderos fans de F1 proporcionan calificaciones auténticas justo después de cada carrera"
+      },
+      "notifications": {
+        "title": "Recibe notificaciones instantáneas",
+        "description": "Recibe calificaciones a través de tu canal preferido"
+      },
+      "enjoy": {
+        "title": "Ahorra tiempo, disfruta lo mejor",
+        "description": "Solo mira las carreras que valen la pena"
+      }
+    }
+  },
+  "benefits": {
+    "title": "¿Por qué elegirnos?",
+    "items": {
+      "time": {
+        "title": "Ahorra tiempo",
+        "description": "No más horas perdidas en carreras aburridas"
+      },
+      "informed": {
+        "title": "Mantente informado",
+        "description": "Sé el primero en saber si es una carrera emocionante"
+      },
+      "updates": {
+        "title": "Actualizaciones flexibles",
+        "description": "Elige entre notificaciones SMS o Telegram"
+      },
+      "family": {
+        "title": "Mira en familia",
+        "description": "Evita momentos dramáticos con nuestro modo seguro para niños"
+      }
+    }
+  },
+  "pricing": {
+    "title": "Precios simples y transparentes",
+    "monthly": {
+      "name": "Pase Mensual",
+      "price": "$7",
+      "period": "/mes",
+      "features": [
+        "Un mes de prueba gratuita",
+        "Notificaciones de carreras",
+        "Soporte SMS y Telegram",
+        "Cancela cuando quieras"
+      ],
+      "cta": "Comenzar prueba gratuita"
+    },
+    "season": {
+      "name": "Pase de Temporada",
+      "price": "$35",
+      "period": "/temporada",
+      "features": [
+        "Un mes de prueba gratuita",
+        "Cobertura completa de temporada",
+        "Soporte SMS y Telegram"
+      ],
+      "cta": "Mejor valor - Comenzar"
+    },
+    "pro": {
+      "name": "Temporada Pro",
+      "price": "$55",
+      "period": "/temporada",
+      "features": {
+        "all": "Todas las características del Pase de Temporada",
+        "safe": "Modo seguro para niños",
+        "instant": "Opción sin espera",
+        "competitions": "Elige otras competiciones",
+        "skip": "Momentos aburridos para saltar"
+      },
+      "info": {
+        "all": "Incluye cobertura completa de temporada, soporte SMS y Telegram, y un mes de prueba gratuita",
+        "safe": "Filtra contenido inapropiado para una experiencia familiar",
+        "instant": "Recibe notificaciones inmediatas de los momentos destacados",
+        "competitions": "Acceso a notificaciones de F2, F3 y otras series",
+        "skip": "Detección con IA de segmentos menos emocionantes para centrarte en la acción"
+      },
+      "cta": "Próximamente - Incluido en el Pase de Temporada durante el lanzamiento"
+    }
+  },
+  "faq": {
+    "title": "Preguntas frecuentes",
+    "questions": {
+      "rating": {
+        "question": "¿Cómo determinan si una carrera vale la pena verla?",
+        "answer": "Analizamos los momentos destacados, número de adelantamientos y reacciones de los fans."
+      },
+      "privacy": {
+        "question": "¿Están seguros mis datos personales?",
+        "answer": "¡Sí! Priorizamos la privacidad y nunca compartimos tus datos de contacto."
+      },
+      "notifications": {
+        "question": "¿Puedo cambiar mi método de notificación más tarde?",
+        "answer": "¡Absolutamente! Puedes actualizar tus preferencias en cualquier momento."
+      },
+      "trial": {
+        "question": "¿Qué sucede después de que termine mi prueba gratuita?",
+        "answer": "Serás notificado antes de que termine tu prueba y podrás elegir continuar con un plan pagado."
+      },
+      "frequency": {
+        "question": "¿Con qué frecuencia recibiré notificaciones?",
+        "answer": "Solo recibirás mensajes después de una carrera para informarte si vale la pena verla."
+      }
+    }
+  },
+  "footer": {
+    "company": {
+      "title": "Race Replay Helper",
+      "description": "Nunca más te pierdas un momento emocionante de carrera."
+    },
+    "legal": {
+      "title": "Legal",
+      "privacy": "Política de privacidad",
+      "terms": "Términos de servicio",
+      "blog": "Blog",
+      "contact": "Contáctanos"
+    },
+    "connect": {
+      "title": "Conéctate con nosotros",
+      "description": "¿Preguntas? Estamos aquí para ayudar.",
+      "cta": "Contactar"
+    },
+    "copyright": "© {year} Race Replay Helper. Todos los derechos reservados."
   }
 }

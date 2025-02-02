@@ -5,61 +5,55 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { useTranslation } from "react-i18next";
 
 export const Pricing = () => {
+  const { t } = useTranslation();
+
   const plans = [
     {
-      name: "Monthly Pass",
-      price: "$7",
-      period: "/month",
-      features: [
-        "One-month free trial",
-        "Race notifications",
-        "SMS & Telegram support",
-        "Cancel anytime",
-      ],
-      cta: "Start Free Trial",
+      name: t("pricing.monthly.name"),
+      price: t("pricing.monthly.price"),
+      period: t("pricing.monthly.period"),
+      features: t("pricing.monthly.features", { returnObjects: true }),
+      cta: t("pricing.monthly.cta"),
       popular: false,
     },
     {
-      name: "Season Pass",
-      price: "$35",
-      period: "/season",
-      features: [
-        "One-month free trial",
-        "Full season coverage",
-        "SMS & Telegram support",
-      ],
-      cta: "Best Value - Get Started",
+      name: t("pricing.season.name"),
+      price: t("pricing.season.price"),
+      period: t("pricing.season.period"),
+      features: t("pricing.season.features", { returnObjects: true }),
+      cta: t("pricing.season.cta"),
       popular: true,
     },
     {
-      name: "Season Pro",
-      price: "$55",
-      period: "/season",
+      name: t("pricing.pro.name"),
+      price: t("pricing.pro.price"),
+      period: t("pricing.pro.period"),
       features: [
         {
-          text: "All Season Pass features",
-          info: "Includes full season coverage, SMS & Telegram support, and one-month free trial",
+          text: t("pricing.pro.features.all"),
+          info: t("pricing.pro.info.all"),
         },
         {
-          text: "Safe for kids mode",
-          info: "Filter out inappropriate content and language for a family-friendly experience",
+          text: t("pricing.pro.features.safe"),
+          info: t("pricing.pro.info.safe"),
         },
         {
-          text: "Don't wait option",
-          info: "Get immediate notifications for race highlights without delay",
+          text: t("pricing.pro.features.instant"),
+          info: t("pricing.pro.info.instant"),
         },
         {
-          text: "Choose other competitions",
-          info: "Access to F2, F3, and other racing series notifications",
+          text: t("pricing.pro.features.competitions"),
+          info: t("pricing.pro.info.competitions"),
         },
         {
-          text: "Boring moments to skip",
-          info: "AI-powered detection of less exciting race segments to help you focus on the action",
+          text: t("pricing.pro.features.skip"),
+          info: t("pricing.pro.info.skip"),
         },
       ],
-      cta: "Coming Soon - Included in Season Pass during Launch",
+      cta: t("pricing.pro.cta"),
       popular: false,
       disabled: true,
     },
@@ -69,7 +63,7 @@ export const Pricing = () => {
     <section className="py-20 px-4 bg-light">
       <div className="max-w-6xl mx-auto">
         <h2 className="text-3xl md:text-4xl font-bold text-center text-secondary mb-16">
-          Simple, Transparent Pricing
+          {t("pricing.title")}
         </h2>
         <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
           {plans.map((plan, index) => (
@@ -91,28 +85,30 @@ export const Pricing = () => {
                 <span className="text-muted ml-2">{plan.period}</span>
               </div>
               <ul className="space-y-4 mb-8">
-                {plan.features.map((feature, i) => (
-                  <li key={i} className="flex items-center text-muted">
-                    <Check className="w-5 h-5 text-primary mr-2" />
-                    {typeof feature === "string" ? (
-                      feature
-                    ) : (
-                      <div className="flex items-center gap-2">
-                        {feature.text}
-                        <TooltipProvider>
-                          <Tooltip>
-                            <TooltipTrigger>
-                              <Info className="w-4 h-4 text-muted hover:text-primary transition-colors" />
-                            </TooltipTrigger>
-                            <TooltipContent>
-                              <p className="max-w-xs">{feature.info}</p>
-                            </TooltipContent>
-                          </Tooltip>
-                        </TooltipProvider>
-                      </div>
-                    )}
-                  </li>
-                ))}
+                {Array.isArray(plan.features) ? (
+                  plan.features.map((feature, i) => (
+                    <li key={i} className="flex items-center text-muted">
+                      <Check className="w-5 h-5 text-primary mr-2" />
+                      {typeof feature === "string" ? (
+                        feature
+                      ) : (
+                        <div className="flex items-center gap-2">
+                          {feature.text}
+                          <TooltipProvider>
+                            <Tooltip>
+                              <TooltipTrigger>
+                                <Info className="w-4 h-4 text-muted hover:text-primary transition-colors" />
+                              </TooltipTrigger>
+                              <TooltipContent>
+                                <p className="max-w-xs">{feature.info}</p>
+                              </TooltipContent>
+                            </Tooltip>
+                          </TooltipProvider>
+                        </div>
+                      )}
+                    </li>
+                  ))
+                ) : null}
               </ul>
               <button
                 className={`w-full py-4 rounded-lg font-semibold transition-colors ${

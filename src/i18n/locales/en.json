@@ -40,5 +40,133 @@
     "signIn": "Sign In",
     "signUp": "Sign Up",
     "signOut": "Sign Out"
+  },
+  "howItWorks": {
+    "title": "How It Works",
+    "steps": {
+      "community": {
+        "title": "Our community rates the race",
+        "description": "Real F1 fans provide authentic ratings right after each race"
+      },
+      "notifications": {
+        "title": "Get instant notifications",
+        "description": "Receive race ratings via your preferred channel"
+      },
+      "enjoy": {
+        "title": "Save time, enjoy the best",
+        "description": "Only watch the races worth your time"
+      }
+    }
+  },
+  "benefits": {
+    "title": "Why Choose Us?",
+    "items": {
+      "time": {
+        "title": "Save Time",
+        "description": "No more wasting hours on dull races"
+      },
+      "informed": {
+        "title": "Stay Informed",
+        "description": "Be the first to know if it's a thrilling race"
+      },
+      "updates": {
+        "title": "Flexible Updates",
+        "description": "Choose between SMS or Telegram notifications"
+      },
+      "family": {
+        "title": "Watch in Family",
+        "description": "Avoid dramatic moments with our safe mode for kids"
+      }
+    }
+  },
+  "pricing": {
+    "title": "Simple, Transparent Pricing",
+    "monthly": {
+      "name": "Monthly Pass",
+      "price": "$7",
+      "period": "/month",
+      "features": [
+        "One-month free trial",
+        "Race notifications",
+        "SMS & Telegram support",
+        "Cancel anytime"
+      ],
+      "cta": "Start Free Trial"
+    },
+    "season": {
+      "name": "Season Pass",
+      "price": "$35",
+      "period": "/season",
+      "features": [
+        "One-month free trial",
+        "Full season coverage",
+        "SMS & Telegram support"
+      ],
+      "cta": "Best Value - Get Started"
+    },
+    "pro": {
+      "name": "Season Pro",
+      "price": "$55",
+      "period": "/season",
+      "features": {
+        "all": "All Season Pass features",
+        "safe": "Safe for kids mode",
+        "instant": "Don't wait option",
+        "competitions": "Choose other competitions",
+        "skip": "Boring moments to skip"
+      },
+      "info": {
+        "all": "Includes full season coverage, SMS & Telegram support, and one-month free trial",
+        "safe": "Filter out inappropriate content and language for a family-friendly experience",
+        "instant": "Get immediate notifications for race highlights without delay",
+        "competitions": "Access to F2, F3, and other racing series notifications",
+        "skip": "AI-powered detection of less exciting race segments to help you focus on the action"
+      },
+      "cta": "Coming Soon - Included in Season Pass during Launch"
+    }
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "questions": {
+      "rating": {
+        "question": "How do you determine if a race is worth watching?",
+        "answer": "We analyze race highlights, overtake numbers, and fan reactions to judge excitement levels."
+      },
+      "privacy": {
+        "question": "Is my personal data safe?",
+        "answer": "Yes! We prioritize privacy and never share your contact details."
+      },
+      "notifications": {
+        "question": "Can I switch my notification method later?",
+        "answer": "Absolutely! You can update your preferences anytime."
+      },
+      "trial": {
+        "question": "What happens after my free trial ends?",
+        "answer": "You will be notified before your trial ends, and you can choose to continue with a paid plan."
+      },
+      "frequency": {
+        "question": "How often will I receive notifications?",
+        "answer": "You will only receive messages after a race to inform you if it's worth a replay."
+      }
+    }
+  },
+  "footer": {
+    "company": {
+      "title": "Race Replay Helper",
+      "description": "Never miss an exciting race moment again."
+    },
+    "legal": {
+      "title": "Legal",
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Service",
+      "blog": "Blog",
+      "contact": "Contact Us"
+    },
+    "connect": {
+      "title": "Connect With Us",
+      "description": "Questions? We're here to help.",
+      "cta": "Get in Touch"
+    },
+    "copyright": "© {year} Race Replay Helper. All rights reserved."
   }
 }

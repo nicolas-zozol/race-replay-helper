@@ -4,31 +4,31 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { useTranslation } from "react-i18next";
 
 export const FAQ = () => {
+  const { t } = useTranslation();
+
   const faqs = [
     {
-      question: "How do you determine if a race is worth watching?",
-      answer:
-        "We analyze race highlights, overtake numbers, and fan reactions to judge excitement levels.",
+      question: t("faq.questions.rating.question"),
+      answer: t("faq.questions.rating.answer"),
     },
     {
-      question: "Is my personal data safe?",
-      answer: "Yes! We prioritize privacy and never share your contact details.",
+      question: t("faq.questions.privacy.question"),
+      answer: t("faq.questions.privacy.answer"),
     },
     {
-      question: "Can I switch my notification method later?",
-      answer: "Absolutely! You can update your preferences anytime.",
+      question: t("faq.questions.notifications.question"),
+      answer: t("faq.questions.notifications.answer"),
     },
     {
-      question: "What happens after my free trial ends?",
-      answer:
-        "You will be notified before your trial ends, and you can choose to continue with a paid plan.",
+      question: t("faq.questions.trial.question"),
+      answer: t("faq.questions.trial.answer"),
     },
     {
-      question: "How often will I receive notifications?",
-      answer:
-        "You will only receive messages after a race to inform you if it's worth a replay.",
+      question: t("faq.questions.frequency.question"),
+      answer: t("faq.questions.frequency.answer"),
     },
   ];
 
@@ -36,7 +36,7 @@ export const FAQ = () => {
     <section className="py-20 px-4 bg-background">
       <div className="max-w-3xl mx-auto">
         <h2 className="text-3xl md:text-4xl font-bold text-center text-secondary mb-12">
-          Frequently Asked Questions
+          {t("faq.title")}
         </h2>
         <Accordion type="single" collapsible className="w-full">
           {faqs.map((faq, index) => (
