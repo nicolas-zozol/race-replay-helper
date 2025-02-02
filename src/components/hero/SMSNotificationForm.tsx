@@ -1,7 +1,7 @@
-import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import { useTranslation } from "react-i18next";
 
 interface SMSNotificationFormProps {
   phoneNumber: string;
@@ -24,17 +24,19 @@ export const SMSNotificationForm = ({
   showFullForm,
   setShowFullForm,
 }: SMSNotificationFormProps) => {
+  const { t } = useTranslation();
+
   if (!showFullForm) {
     return (
       <div className="space-y-4 mt-4">
         <Input
           type="tel"
-          placeholder="Enter your phone number"
+          placeholder={t("hero.sms.phonePlaceholder")}
           value={phoneNumber}
           onChange={(e) => setPhoneNumber(e.target.value)}
         />
         <Button onClick={() => setShowFullForm(true)} className="w-full">
-          Continue
+          {t("hero.sms.continue")}
         </Button>
       </div>
     );
@@ -61,33 +63,35 @@ export const SMSNotificationForm = ({
             fill="#EA4335"
           />
         </svg>
-        Continue with Google
+        {t("hero.auth.continueWithGoogle")}
       </Button>
       <div className="relative">
         <div className="absolute inset-0 flex items-center">
           <Separator className="w-full" />
         </div>
         <div className="relative flex justify-center text-xs uppercase">
-          <span className="bg-background px-2 text-muted-foreground">Or continue with</span>
+          <span className="bg-background px-2 text-muted-foreground">
+            {t("hero.auth.orContinueWith")}
+          </span>
         </div>
       </div>
       <Input
         type="tel"
-        placeholder="Enter your phone number"
+        placeholder={t("hero.sms.phonePlaceholder")}
         value={phoneNumber}
         onChange={(e) => setPhoneNumber(e.target.value)}
       />
       <Input
         type="email"
-        placeholder="Enter your email (required)"
+        placeholder={t("hero.sms.emailPlaceholder")}
         value={email}
         onChange={(e) => setEmail(e.target.value)}
       />
       <Button onClick={() => handleSubmit("SMS")} className="w-full">
-        Register - Start Free Trial
+        {t("hero.sms.register")}
       </Button>
       <p className="text-sm text-muted-foreground">
-        🔒 Your data is encrypted and never shared with third parties.
+        {t("hero.sms.privacy")}
       </p>
     </div>
   );

@@ -3,24 +3,42 @@
     "title": "Skip the boring races.",
     "subtitle": "We'll tell you if it's worth the replay!",
     "description": "Get instant race ratings via SMS or Telegram notification. Never waste time on a dull race again.",
-    "sms": "Sign up for SMS",
-    "telegram": "Get Telegram notifications",
-    "email": "Email updates",
-    "privacy": "Your data is secure and will never be shared",
-    "trial": "Free trial starts with the new season!"
+    "sms": {
+      "button": "Sign up for SMS",
+      "title": "Sign up for SMS updates",
+      "description": "Get instant race ratings on your phone. Free trial starts with the new season!",
+      "phonePlaceholder": "Enter your phone number",
+      "emailPlaceholder": "Enter your email (required)",
+      "continue": "Continue",
+      "register": "Register - Start Free Trial",
+      "privacy": "🔒 Your data is encrypted and never shared with third parties."
+    },
+    "telegram": {
+      "button": "Get Telegram notifications",
+      "title": "Connect via Telegram",
+      "description": "Get instant race updates on Telegram. Free trial starts with the new season!",
+      "handlePlaceholder": "@yourtelegramhandle",
+      "emailPlaceholder": "Enter your email (required)",
+      "continue": "Continue",
+      "register": "Register - Start Free Trial",
+      "privacy": "🔒 Your information is secure and will never be shared."
+    },
+    "email": {
+      "button": "Email updates",
+      "title": "Sign up for Email updates",
+      "description": "Get race ratings and updates directly in your inbox.",
+      "placeholder": "Enter your email",
+      "subscribe": "Subscribe",
+      "privacy": "🔒 We never share your email and you can unsubscribe anytime."
+    },
+    "auth": {
+      "continueWithGoogle": "Continue with Google",
+      "orContinueWith": "Or continue with"
+    }
   },
   "header": {
     "signIn": "Sign In",
     "signUp": "Sign Up",
     "signOut": "Sign Out"
-  },
-  "auth": {
-    "emailPlaceholder": "Enter your email",
-    "phonePlaceholder": "Enter your phone number",
-    "telegramPlaceholder": "@yourtelegramhandle",
-    "continueWithGoogle": "Continue with Google",
-    "orContinueWith": "Or continue with",
-    "register": "Register - Start Free Trial",
-    "dataSecure": "🔒 Your information is secure and will never be shared"
   }
 }

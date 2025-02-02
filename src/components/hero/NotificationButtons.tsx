@@ -11,6 +11,7 @@ import {
 import { SMSNotificationForm } from "./SMSNotificationForm";
 import { TelegramNotificationForm } from "./TelegramNotificationForm";
 import { EmailNotificationForm } from "./EmailNotificationForm";
+import { useTranslation } from "react-i18next";
 
 interface NotificationButtonsProps {
   phoneNumber: string;
@@ -41,20 +42,22 @@ export const NotificationButtons = ({
   showFullTelegramForm,
   setShowFullTelegramForm,
 }: NotificationButtonsProps) => {
+  const { t } = useTranslation();
+
   return (
     <div className="flex flex-col md:flex-row gap-4 justify-center">
       <Dialog>
         <DialogTrigger asChild>
           <Button className="flex items-center justify-center gap-2 bg-primary hover:bg-primary-hover text-white">
             <MessageSquare className="w-5 h-5" />
-            Sign up for SMS
+            {t("hero.sms.button")}
           </Button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle>Sign up for SMS updates</DialogTitle>
+            <DialogTitle>{t("hero.sms.title")}</DialogTitle>
             <DialogDescription>
-              Get instant race ratings on your phone. Free trial starts with the new season!
+              {t("hero.sms.description")}
             </DialogDescription>
           </DialogHeader>
           <SMSNotificationForm
@@ -74,14 +77,14 @@ export const NotificationButtons = ({
         <DialogTrigger asChild>
           <Button className="flex items-center justify-center gap-2 bg-primary hover:bg-primary-hover text-white">
             <Send className="w-5 h-5" />
-            Get Telegram notifications
+            {t("hero.telegram.button")}
           </Button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle>Connect via Telegram</DialogTitle>
+            <DialogTitle>{t("hero.telegram.title")}</DialogTitle>
             <DialogDescription>
-              Get instant race updates on Telegram. Free trial starts with the new season!
+              {t("hero.telegram.description")}
             </DialogDescription>
           </DialogHeader>
           <TelegramNotificationForm
@@ -104,13 +107,13 @@ export const NotificationButtons = ({
             className="flex items-center justify-center gap-2 border-2 border-muted text-muted hover:border-primary hover:text-primary"
           >
             <Mail className="w-5 h-5" />
-            Email updates
+            {t("hero.email.button")}
           </Button>
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Sign up for Email updates</DialogTitle>
-            <DialogDescription>Get race ratings and updates directly in your inbox.</DialogDescription>
+            <DialogTitle>{t("hero.email.title")}</DialogTitle>
+            <DialogDescription>{t("hero.email.description")}</DialogDescription>
           </DialogHeader>
           <EmailNotificationForm email={email} setEmail={setEmail} handleSubmit={handleSubmit} />
         </DialogContent>
