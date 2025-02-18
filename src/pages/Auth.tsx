@@ -8,12 +8,40 @@ import { useToast } from "@/hooks/use-toast";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
-import { X } from "lucide-react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useTranslation } from "react-i18next";
+
+interface CountryCode {
+  name: string;
+  code: string;
+  dialCode: string;
+}
+
+const TOP_COUNTRIES: CountryCode[] = [
+  { name: "United States", code: "US", dialCode: "1" },
+  { name: "United Kingdom", code: "GB", dialCode: "44" },
+  { name: "France", code: "FR", dialCode: "33" },
+];
+
+const OTHER_COUNTRIES: CountryCode[] = [
+  { name: "Australia", code: "AU", dialCode: "61" },
+  { name: "Brazil", code: "BR", dialCode: "55" },
+  { name: "Canada", code: "CA", dialCode: "1" },
+  { name: "China", code: "CN", dialCode: "86" },
+  { name: "Germany", code: "DE", dialCode: "49" },
+  { name: "India", code: "IN", dialCode: "91" },
+  { name: "Italy", code: "IT", dialCode: "39" },
+  { name: "Japan", code: "JP", dialCode: "81" },
+  { name: "Mexico", code: "MX", dialCode: "52" },
+  { name: "Netherlands", code: "NL", dialCode: "31" },
+  { name: "Spain", code: "ES", dialCode: "34" },
+  // Add more countries as needed
+];
 
 const Auth = () => {
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [selectedCountry, setSelectedCountry] = useState<CountryCode>(TOP_COUNTRIES[0]);
   const [telegramHandle, setTelegramHandle] = useState("");
   const [notificationMethod, setNotificationMethod] = useState<"sms" | "telegram" | "both">("sms");
   const [loading, setLoading] = useState(false);
@@ -25,6 +53,8 @@ const Auth = () => {
 
   const handleEmailLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    const fullPhoneNumber = phoneNumber ? `+${selectedCountry.dialCode}${phoneNumber.replace(/^0+/, '')}` : '';
     
     // Validate notification method selection
     if (notificationMethod === "sms" && !phoneNumber) {
@@ -62,7 +92,7 @@ const Auth = () => {
           emailRedirectTo: window.location.origin,
           data: {
             notification_method: notificationMethod,
-            phone_number: phoneNumber || null,
+            phone_number: fullPhoneNumber || null,
             telegram_handle: telegramHandle || null,
           },
         },
@@ -111,14 +141,6 @@ const Auth = () => {
     <Dialog open={true} onOpenChange={handleClose}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <Button
-            variant="ghost"
-            className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground"
-            onClick={handleClose}
-          >
-            <X className="h-4 w-4" />
-            <span className="sr-only">Close</span>
-          </Button>
           <DialogTitle>
             {mode === "signin" ? "Welcome Back" : "Create Account"}
           </DialogTitle>
@@ -168,13 +190,46 @@ const Auth = () => {
             {(notificationMethod === "sms" || notificationMethod === "both") && (
               <div className="grid gap-2">
                 <Label htmlFor="phone">Phone Number</Label>
-                <Input
-                  id="phone"
-                  type="tel"
-                  placeholder="+1234567890"
-                  value={phoneNumber}
-                  onChange={(e) => setPhoneNumber(e.target.value)}
-                />
+                <div className="flex gap-2">
+                  <Select
+                    value={selectedCountry.code}
+                    onValueChange={(value) => {
+                      const country = [...TOP_COUNTRIES, ...OTHER_COUNTRIES].find(c => c.code === value);
+                      if (country) setSelectedCountry(country);
+                    }}
+                  >
+                    <SelectTrigger className="w-[140px]">
+                      <SelectValue placeholder="Select country" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <div className="border-b border-gray-200 pb-2">
+                        {TOP_COUNTRIES.map((country) => (
+                          <SelectItem key={country.code} value={country.code}>
+                            {country.name} (+{country.dialCode})
+                          </SelectItem>
+                        ))}
+                      </div>
+                      {OTHER_COUNTRIES.map((country) => (
+                        <SelectItem key={country.code} value={country.code}>
+                          {country.name} (+{country.dialCode})
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <div className="relative flex-1">
+                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">
+                      +{selectedCountry.dialCode}
+                    </span>
+                    <Input
+                      id="phone"
+                      type="tel"
+                      className="pl-12"
+                      placeholder="Phone number"
+                      value={phoneNumber}
+                      onChange={(e) => setPhoneNumber(e.target.value.replace(/\D/g, ''))}
+                    />
+                  </div>
+                </div>
               </div>
             )}
 
