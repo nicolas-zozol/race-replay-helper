@@ -9,6 +9,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Flag } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 interface CountryCode {
@@ -199,19 +200,30 @@ const Auth = () => {
                     }}
                   >
                     <SelectTrigger className="w-[140px]">
-                      <SelectValue placeholder="Select country" />
+                      <SelectValue placeholder="Select country">
+                        <div className="flex items-center gap-2">
+                          <Flag className="h-4 w-4" />
+                          {selectedCountry.name}
+                        </div>
+                      </SelectValue>
                     </SelectTrigger>
                     <SelectContent>
                       <div className="border-b border-gray-200 pb-2">
                         {TOP_COUNTRIES.map((country) => (
                           <SelectItem key={country.code} value={country.code}>
-                            {country.name} (+{country.dialCode})
+                            <div className="flex items-center gap-2">
+                              <Flag className="h-4 w-4" />
+                              {country.name} (+{country.dialCode})
+                            </div>
                           </SelectItem>
                         ))}
                       </div>
                       {OTHER_COUNTRIES.map((country) => (
                         <SelectItem key={country.code} value={country.code}>
-                          {country.name} (+{country.dialCode})
+                          <div className="flex items-center gap-2">
+                            <Flag className="h-4 w-4" />
+                            {country.name} (+{country.dialCode})
+                          </div>
                         </SelectItem>
                       ))}
                     </SelectContent>
