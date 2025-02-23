@@ -1,3 +1,4 @@
+
 import { Share } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
@@ -65,73 +66,89 @@ const Dashboard = () => {
         <div className="space-y-6">
           <h2 className="text-xl font-semibold">Rating Configuration</h2>
           
-          <div className="flex items-center gap-4">
-            <div className="flex-1">
-              <Label>Lower Threshold</Label>
-              <Input 
-                type="number" 
-                min="1" 
-                max="10"
-                value={lowerThreshold}
-                onChange={(e) => setLowerThreshold(Number(e.target.value))}
-              />
+          <div className="space-y-6">
+            <div className="space-y-4">
+              <Label>Rating Thresholds</Label>
+              <div className="relative h-2 rounded-full"
+                   style={{
+                     background: `linear-gradient(to right, 
+                       #ea384c 0%, 
+                       #ea384c ${(lowerThreshold / 10) * 100}%, 
+                       #F97316 ${(lowerThreshold / 10) * 100}%, 
+                       #F97316 ${(upperThreshold / 10) * 100}%, 
+                       #4ADE80 ${(upperThreshold / 10) * 100}%, 
+                       #4ADE80 100%)`
+                   }}>
+                <div className="absolute -top-4 left-0 w-full">
+                  <input
+                    type="range"
+                    min="1"
+                    max="10"
+                    value={lowerThreshold}
+                    onChange={(e) => setLowerThreshold(Number(e.target.value))}
+                    className="absolute w-full appearance-none bg-transparent pointer-events-none [&::-webkit-slider-thumb]:pointer-events-auto [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-gray-400 [&::-webkit-slider-thumb]:cursor-pointer [&::-moz-range-thumb]:pointer-events-auto [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:appearance-none [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-white [&::-moz-range-thumb]:border-2 [&::-moz-range-thumb]:border-gray-400 [&::-moz-range-thumb]:cursor-pointer"
+                  />
+                  <input
+                    type="range"
+                    min="1"
+                    max="10"
+                    value={upperThreshold}
+                    onChange={(e) => setUpperThreshold(Number(e.target.value))}
+                    className="absolute w-full appearance-none bg-transparent pointer-events-none [&::-webkit-slider-thumb]:pointer-events-auto [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-gray-400 [&::-webkit-slider-thumb]:cursor-pointer [&::-moz-range-thumb]:pointer-events-auto [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:appearance-none [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-white [&::-moz-range-thumb]:border-2 [&::-moz-range-thumb]:border-gray-400 [&::-moz-range-thumb]:cursor-pointer"
+                  />
+                </div>
+              </div>
+              <div className="flex justify-between text-sm text-gray-500 mt-2">
+                <div>Lower: {lowerThreshold}</div>
+                <div>Upper: {upperThreshold}</div>
+              </div>
             </div>
-            <div className="flex-1">
-              <Label>Upper Threshold</Label>
-              <Input 
-                type="number" 
-                min="1" 
-                max="10"
-                value={upperThreshold}
-                onChange={(e) => setUpperThreshold(Number(e.target.value))}
-              />
-            </div>
-          </div>
 
-          <div className="space-y-4">
-            <div>
-              <Label>Message for rating below {lowerThreshold}</Label>
-              <Input 
-                value={badMessage}
-                onChange={(e) => setBadMessage(e.target.value)}
-              />
+            <div className="space-y-4">
+              <div>
+                <Label>Message for rating below {lowerThreshold}</Label>
+                <Input 
+                  value={badMessage}
+                  onChange={(e) => setBadMessage(e.target.value)}
+                />
+              </div>
+              <div>
+                <Label>Message for rating between {lowerThreshold} and {upperThreshold}</Label>
+                <Input 
+                  value={okMessage}
+                  onChange={(e) => setOkMessage(e.target.value)}
+                />
+              </div>
+              <div>
+                <Label>Message for rating above {upperThreshold}</Label>
+                <Input 
+                  value={greatMessage}
+                  onChange={(e) => setGreatMessage(e.target.value)}
+                />
+              </div>
             </div>
-            <div>
-              <Label>Message for rating between {lowerThreshold} and {upperThreshold}</Label>
-              <Input 
-                value={okMessage}
-                onChange={(e) => setOkMessage(e.target.value)}
-              />
-            </div>
-            <div>
-              <Label>Message for rating above {upperThreshold}</Label>
-              <Input 
-                value={greatMessage}
-                onChange={(e) => setGreatMessage(e.target.value)}
-              />
-            </div>
-          </div>
 
-          <div className="space-y-4">
-            <Label>Current Rating: <span style={{ color: getRatingColor(rating) }} className="text-2xl font-bold">{rating}</span></Label>
-            <div className="relative w-full h-2 bg-gray-200 rounded-full cursor-pointer"
-                 onClick={(e) => {
-                   const rect = e.currentTarget.getBoundingClientRect();
-                   const x = e.clientX - rect.left;
-                   const newRating = Math.round((x / rect.width) * 9) + 1;
-                   handleRatingChange(Math.min(Math.max(newRating, 1), 10));
-                 }}>
-              <div
-                className="absolute inset-0 rounded-full transition-all duration-200"
-                style={{
-                  width: `${(rating / 10) * 100}%`,
-                  backgroundColor: getRatingColor(rating),
-                }}
-              />
-            </div>
-            <div className="flex justify-between text-sm text-gray-500">
-              <span>1</span>
-              <span>10</span>
+            <div className="space-y-4">
+              <Label>Current Rating: <span style={{ color: getRatingColor(rating) }} className="text-2xl font-bold">{rating}</span></Label>
+              <div className="relative w-full h-2 bg-gray-200 rounded-full cursor-pointer"
+                   onClick={(e) => {
+                     const rect = e.currentTarget.getBoundingClientRect();
+                     const x = e.clientX - rect.left;
+                     const newRating = Math.round((x / rect.width) * 9) + 1;
+                     handleRatingChange(Math.min(Math.max(newRating, 1), 10));
+                   }}>
+                <div
+                  className="absolute inset-0 rounded-full transition-all duration-200"
+                  style={{
+                    width: `${(rating / 10) * 100}%`,
+                    backgroundColor: getRatingColor(rating),
+                  }}
+                />
+              </div>
+              <div className="flex justify-between text-sm text-gray-500">
+                <span>1</span>
+                <span>10</span>
+              </div>
             </div>
           </div>
         </div>
