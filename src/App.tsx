@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -54,19 +53,9 @@ const App = () => {
           <SEO />
           <Header session={session} />
           <Routes>
-            <Route
-              path="/"
-              element={
-                session ? <Navigate to="/dashboard" replace /> : <Index />
-              }
-            />
+            <Route path="/" element={<Index />} />
             <Route path="/auth" element={<Auth />} />
-            <Route
-              path="/dashboard"
-              element={
-                session ? <Dashboard /> : <Navigate to="/auth" replace />
-              }
-            />
+            <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/privacy" element={<Privacy />} />
