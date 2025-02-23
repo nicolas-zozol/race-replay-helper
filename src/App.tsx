@@ -1,8 +1,9 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import Index from "./pages/Index";
@@ -12,6 +13,7 @@ import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
+import Dashboard from "./pages/Dashboard";
 import { Footer } from "./components/Footer";
 import { Header } from "./components/Header";
 import { SEO } from "./components/SEO";
@@ -52,15 +54,26 @@ const App = () => {
           <SEO />
           <Header session={session} />
           <Routes>
-            <Route path="/" element={<Index />} />
+            <Route
+              path="/"
+              element={
+                session ? <Navigate to="/dashboard" replace /> : <Index />
+              }
+            />
             <Route path="/auth" element={<Auth />} />
+            <Route
+              path="/dashboard"
+              element={
+                session ? <Dashboard /> : <Navigate to="/auth" replace />
+              }
+            />
             <Route path="/blog" element={<Blog />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/terms" element={<Terms />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
-          <Footer />
+          {!session && <Footer />}
         </BrowserRouter>
       </TooltipProvider>
     </QueryClientProvider>
