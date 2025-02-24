@@ -5,6 +5,7 @@ import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
 import { useState } from "react";
 import { toast } from "@/hooks/use-toast";
 
@@ -25,6 +26,7 @@ const Dashboard = () => {
   const [badMessage, setBadMessage] = useState("the race sucks");
   const [okMessage, setOkMessage] = useState("the race is good enough");
   const [greatMessage, setGreatMessage] = useState("it's great");
+  const [useDualSliders, setUseDualSliders] = useState(false);
 
   const handleRatingChange = (newRating: number) => {
     setRating(newRating);
@@ -79,6 +81,20 @@ const Dashboard = () => {
           <h2 className="text-xl font-semibold">Rating Configuration</h2>
           
           <div className="space-y-6">
+            <div className="flex items-center space-x-2">
+              <Checkbox
+                id="dual-sliders"
+                checked={useDualSliders}
+                onCheckedChange={(checked) => setUseDualSliders(checked as boolean)}
+              />
+              <label
+                htmlFor="dual-sliders"
+                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              >
+                Use two sliders for fine-tuned control
+              </label>
+            </div>
+
             <div className="space-y-4">
               <Label>Rating Thresholds</Label>
               <div className="relative h-2 rounded-full"
@@ -91,24 +107,37 @@ const Dashboard = () => {
                        #4ADE80 ${(upperThreshold / 10) * 100}%, 
                        #4ADE80 100%)`
                    }}>
-                <input
-                  type="range"
-                  min="1"
-                  max="10"
-                  value={upperThreshold}
-                  onChange={(e) => handleUpperChange(Number(e.target.value))}
-                  className="absolute top-1/2 -translate-y-1/2 w-full h-8 appearance-none bg-transparent pointer-events-auto [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-gray-400 [&::-webkit-slider-thumb]:cursor-pointer [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-white [&::-moz-range-thumb]:border-2 [&::-moz-range-thumb]:border-gray-400 [&::-moz-range-thumb]:cursor-pointer"
-                  style={{ zIndex: 1 }}
-                />
-                <input
-                  type="range"
-                  min="1"
-                  max="10"
-                  value={lowerThreshold}
-                  onChange={(e) => handleLowerChange(Number(e.target.value))}
-                  className="absolute top-1/2 -translate-y-1/2 w-full h-8 appearance-none bg-transparent pointer-events-auto [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-gray-400 [&::-webkit-slider-thumb]:cursor-pointer [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-white [&::-moz-range-thumb]:border-2 [&::-moz-range-thumb]:border-gray-400 [&::-moz-range-thumb]:cursor-pointer"
-                  style={{ zIndex: 2 }}
-                />
+                {useDualSliders ? (
+                  <>
+                    <input
+                      type="range"
+                      min="1"
+                      max="10"
+                      value={lowerThreshold}
+                      onChange={(e) => handleLowerChange(Number(e.target.value))}
+                      className="absolute top-1/2 -translate-y-1/2 w-full h-8 appearance-none bg-transparent pointer-events-auto [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-gray-400 [&::-webkit-slider-thumb]:cursor-pointer [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-white [&::-moz-range-thumb]:border-2 [&::-moz-range-thumb]:border-gray-400 [&::-moz-range-thumb]:cursor-pointer"
+                      style={{ zIndex: 2 }}
+                    />
+                    <input
+                      type="range"
+                      min="1"
+                      max="10"
+                      value={upperThreshold}
+                      onChange={(e) => handleUpperChange(Number(e.target.value))}
+                      className="absolute top-1/2 -translate-y-1/2 w-full h-8 appearance-none bg-transparent pointer-events-auto [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-gray-400 [&::-webkit-slider-thumb]:cursor-pointer [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-white [&::-moz-range-thumb]:border-2 [&::-moz-range-thumb]:border-gray-400 [&::-moz-range-thumb]:cursor-pointer"
+                      style={{ zIndex: 1 }}
+                    />
+                  </>
+                ) : (
+                  <input
+                    type="range"
+                    min="1"
+                    max="10"
+                    value={lowerThreshold}
+                    onChange={(e) => handleLowerChange(Number(e.target.value))}
+                    className="absolute top-1/2 -translate-y-1/2 w-full h-8 appearance-none bg-transparent pointer-events-auto [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-gray-400 [&::-webkit-slider-thumb]:cursor-pointer [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-white [&::-moz-range-thumb]:border-2 [&::-moz-range-thumb]:border-gray-400 [&::-moz-range-thumb]:cursor-pointer"
+                  />
+                )}
               </div>
               <div className="flex justify-between text-sm text-gray-500 mt-2">
                 <div>Lower: {lowerThreshold}</div>
