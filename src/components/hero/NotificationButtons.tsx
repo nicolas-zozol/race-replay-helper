@@ -13,6 +13,16 @@ export const NotificationButtons = () => {
           {t("header.signUp")}
         </Button>
       </Link>
+      <Button 
+        variant="destructive" 
+        className="flex items-center justify-center gap-2"
+        onClick={() => {
+          // Here we'll add the cancel subscription logic later
+          console.log('Cancel subscription clicked');
+        }}
+      >
+        Cancel Subscription
+      </Button>
     </div>
   );
 };
