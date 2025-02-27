@@ -1,23 +1,33 @@
 
 import { Share } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Switch } from "@/components/ui/switch";
 import { useState } from "react";
 import { toast } from "@/hooks/use-toast";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
-const activities = [
-  { name: "Walk for 15mins", count: 3, color: "#FFB84C" },
-  { name: "Read 20 pages", count: 1, color: "#F97316" },
-  { name: "Take a deep breath", count: 1, color: "#D946EF" },
-  { name: "Write one sentence", count: 2, color: "#38BDF8" },
-  { name: "Take a deep breath", count: 2, color: "#4ADE80" },
+const pilots2025 = [
+  "Alexander Albon",
+  "Carlos Sainz",
+  "Charles Leclerc",
+  "Esteban Ocon",
+  "Fernando Alonso",
+  "George Russell",
+  "Lance Stroll",
+  "Lando Norris",
+  "Lewis Hamilton",
+  "Max Verstappen",
+  "Oscar Piastri",
+  "Pierre Gasly",
+  "Sergio Perez",
+  "Valtteri Bottas",
+  "Yuki Tsunoda",
+  "Zhou Guanyu"
 ];
-
-const totalCount = activities.reduce((sum, activity) => sum + activity.count, 0);
 
 const Dashboard = () => {
   const [rating, setRating] = useState(5);
@@ -27,6 +37,14 @@ const Dashboard = () => {
   const [okMessage, setOkMessage] = useState("the race is good enough");
   const [greatMessage, setGreatMessage] = useState("it's great");
   const [useDualSliders, setUseDualSliders] = useState(false);
+  
+  // New feature states
+  const [safeForKids, setSafeForKids] = useState(false);
+  const [dontWait, setDontWait] = useState(false);
+  const [boringMomentsToSkip, setBoringMomentsToSkip] = useState(false);
+  const [skipLevel, setSkipLevel] = useState("boring");
+  const [selectedPilots, setSelectedPilots] = useState<string[]>([]);
+  const [competitions, setCompetitions] = useState<string[]>([]);
 
   const handleRatingChange = (newRating: number) => {
     setRating(newRating);
@@ -67,8 +85,24 @@ const Dashboard = () => {
     }
   };
 
+  const handlePilotToggle = (pilot: string) => {
+    setSelectedPilots(prev => 
+      prev.includes(pilot) 
+        ? prev.filter(p => p !== pilot) 
+        : [...prev, pilot]
+    );
+  };
+
+  const handleCompetitionToggle = (competition: string) => {
+    setCompetitions(prev => 
+      prev.includes(competition) 
+        ? prev.filter(c => c !== competition) 
+        : [...prev, competition]
+    );
+  };
+
   return (
-    <div className="mx-auto max-w-md px-4 py-8">
+    <div className="mx-auto max-w-md px-4 py-8 mb-20">
       <Tabs defaultValue="progress" className="w-full">
         <TabsList className="grid w-full grid-cols-2 mb-8">
           <TabsTrigger value="progress">Progress</TabsTrigger>
@@ -194,52 +228,109 @@ const Dashboard = () => {
           </div>
         </div>
 
-        <div className="border-t pt-6">
-          <div className="flex items-start justify-between mb-6">
-            <div>
-              <h1 className="text-4xl font-bold mb-4">{totalCount}</h1>
-              <p className="text-xl leading-relaxed text-gray-800">
-                I've cast <span className="border-b border-gray-400">{totalCount} votes</span> towards<br />
-                becoming a better me.
-              </p>
+        <div className="border-t pt-6 space-y-6">
+          <h2 className="text-xl font-semibold">Premium Features</h2>
+          
+          {/* Safe for Kids Feature */}
+          <div className="p-4 bg-gray-50 rounded-xl space-y-3">
+            <div className="flex items-center justify-between">
+              <h3 className="font-medium">Safe for Kids</h3>
+              <Switch
+                checked={safeForKids}
+                onCheckedChange={setSafeForKids}
+              />
             </div>
-            <Button variant="secondary" className="rounded-full px-4 py-2 bg-gray-100">
-              <Share className="mr-2 h-4 w-4" />
-              Share
-            </Button>
+            <p className="text-sm text-gray-600">
+              You will receive a message along with the rating if there is a major security concern.
+            </p>
           </div>
-
-          <div className="flex w-full h-12 rounded-lg overflow-hidden mb-8">
-            {activities.map((activity, index) => (
-              <div
-                key={index}
-                style={{
-                  backgroundColor: activity.color,
-                  width: `${(activity.count / totalCount) * 100}%`,
-                }}
-                className="flex items-center justify-center text-white font-medium"
-              >
-                {activity.count}
-              </div>
-            ))}
+          
+          {/* Don't Wait Option */}
+          <div className="p-4 bg-gray-50 rounded-xl space-y-3">
+            <div className="flex items-center justify-between">
+              <h3 className="font-medium">Don't Wait Option</h3>
+              <Switch
+                checked={dontWait}
+                onCheckedChange={setDontWait}
+              />
+            </div>
+            <p className="text-sm text-gray-600">
+              You will receive the notification shortly after the race. You will kind of spoil of existence of red flags.
+            </p>
           </div>
-
-          <div className="space-y-3">
-            {activities.map((activity, index) => (
-              <div
-                key={index}
-                className="flex items-center justify-between p-4 bg-gray-50 rounded-xl"
-              >
-                <div className="flex items-center gap-3">
-                  <div
-                    className="w-3 h-3 rounded-full"
-                    style={{ backgroundColor: activity.color }}
-                  />
-                  <span className="text-gray-800">{activity.name}</span>
+          
+          {/* Choose Other Competitions */}
+          <div className="p-4 bg-gray-50 rounded-xl space-y-3">
+            <h3 className="font-medium">Choose Other Competitions</h3>
+            <p className="text-sm text-gray-600 mb-3">
+              The system works for any competition. When available, you can opt in for motoGP or IndyCar.
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {["MotoGP", "IndyCar", "Formula E"].map(comp => (
+                <div 
+                  key={comp}
+                  onClick={() => handleCompetitionToggle(comp)}
+                  className={`px-3 py-1.5 text-sm rounded-full cursor-pointer border transition-colors ${
+                    competitions.includes(comp) 
+                      ? "bg-primary text-white border-primary" 
+                      : "bg-white text-gray-700 border-gray-300 hover:bg-gray-100"
+                  }`}
+                >
+                  {comp}
                 </div>
-                <span className="font-medium">{activity.count}</span>
+              ))}
+            </div>
+          </div>
+          
+          {/* Boring Moments to Skip */}
+          <div className="p-4 bg-gray-50 rounded-xl space-y-3">
+            <div className="flex items-center justify-between">
+              <h3 className="font-medium">Boring Moments to Skip</h3>
+              <Switch
+                checked={boringMomentsToSkip}
+                onCheckedChange={setBoringMomentsToSkip}
+              />
+            </div>
+            <p className="text-sm text-gray-600">
+              If and only if the race is less than great, you will receive some parts you can skip. Typically between 15th and 45th lap.
+            </p>
+            {boringMomentsToSkip && (
+              <div className="pt-2">
+                <Select value={skipLevel} onValueChange={setSkipLevel}>
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Select level" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="boring">Boring parts</SelectItem>
+                    <SelectItem value="good">Good parts</SelectItem>
+                    <SelectItem value="great">Great parts</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
-            ))}
+            )}
+          </div>
+          
+          {/* Fan Mode */}
+          <div className="p-4 bg-gray-50 rounded-xl space-y-3">
+            <h3 className="font-medium">Fan Mode</h3>
+            <p className="text-sm text-gray-600 mb-3">
+              If one of these pilots wins, the race is great by default. Never miss your favorite winning a race!
+            </p>
+            <div className="max-h-40 overflow-y-auto pr-2 flex flex-wrap gap-2">
+              {pilots2025.map(pilot => (
+                <div 
+                  key={pilot}
+                  onClick={() => handlePilotToggle(pilot)}
+                  className={`px-3 py-1.5 text-sm rounded-full cursor-pointer border transition-colors ${
+                    selectedPilots.includes(pilot) 
+                      ? "bg-primary text-white border-primary" 
+                      : "bg-white text-gray-700 border-gray-300 hover:bg-gray-100"
+                  }`}
+                >
+                  {pilot}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
