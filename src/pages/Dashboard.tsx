@@ -1,5 +1,5 @@
 
-import { Share } from "lucide-react";
+import { Share, Flag } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
@@ -10,24 +10,34 @@ import { useState } from "react";
 import { toast } from "@/hooks/use-toast";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
-const pilots2025 = [
-  "Alexander Albon",
-  "Carlos Sainz",
-  "Charles Leclerc",
-  "Esteban Ocon",
-  "Fernando Alonso",
-  "George Russell",
-  "Lance Stroll",
-  "Lando Norris",
-  "Lewis Hamilton",
-  "Max Verstappen",
-  "Oscar Piastri",
-  "Pierre Gasly",
-  "Sergio Perez",
-  "Valtteri Bottas",
-  "Yuki Tsunoda",
-  "Zhou Guanyu"
+// Define pilot type with nationality
+interface Pilot {
+  name: string;
+  lastName: string;
+  nationality: string;
+}
+
+const pilots2025: Pilot[] = [
+  { name: "Alexander Albon", lastName: "Albon", nationality: "TH" },
+  { name: "Carlos Sainz", lastName: "Sainz", nationality: "ES" },
+  { name: "Charles Leclerc", lastName: "Leclerc", nationality: "MC" },
+  { name: "Esteban Ocon", lastName: "Ocon", nationality: "FR" },
+  { name: "Fernando Alonso", lastName: "Alonso", nationality: "ES" },
+  { name: "George Russell", lastName: "Russell", nationality: "GB" },
+  { name: "Lance Stroll", lastName: "Stroll", nationality: "CA" },
+  { name: "Lando Norris", lastName: "Norris", nationality: "GB" },
+  { name: "Lewis Hamilton", lastName: "Hamilton", nationality: "GB" },
+  { name: "Max Verstappen", lastName: "Verstappen", nationality: "NL" },
+  { name: "Oscar Piastri", lastName: "Piastri", nationality: "AU" },
+  { name: "Pierre Gasly", lastName: "Gasly", nationality: "FR" },
+  { name: "Sergio Perez", lastName: "Perez", nationality: "MX" },
+  { name: "Valtteri Bottas", lastName: "Bottas", nationality: "FI" },
+  { name: "Yuki Tsunoda", lastName: "Tsunoda", nationality: "JP" },
+  { name: "Zhou Guanyu", lastName: "Zhou", nationality: "CN" }
 ];
+
+// Sort pilots by last name
+const sortedPilots = [...pilots2025].sort((a, b) => a.lastName.localeCompare(b.lastName));
 
 const Dashboard = () => {
   const [rating, setRating] = useState(5);
@@ -38,13 +48,15 @@ const Dashboard = () => {
   const [greatMessage, setGreatMessage] = useState("it's great");
   const [useDualSliders, setUseDualSliders] = useState(false);
   
-  // New feature states
+  // Feature states
   const [safeForKids, setSafeForKids] = useState(false);
   const [dontWait, setDontWait] = useState(false);
   const [boringMomentsToSkip, setBoringMomentsToSkip] = useState(false);
   const [skipLevel, setSkipLevel] = useState("boring");
   const [selectedPilots, setSelectedPilots] = useState<string[]>([]);
   const [competitions, setCompetitions] = useState<string[]>([]);
+  const [haterModeEnabled, setHaterModeEnabled] = useState(false);
+  const [haterModeLevel, setHaterModeLevel] = useState("good");
 
   const handleRatingChange = (newRating: number) => {
     setRating(newRating);
@@ -85,11 +97,11 @@ const Dashboard = () => {
     }
   };
 
-  const handlePilotToggle = (pilot: string) => {
+  const handlePilotToggle = (pilotName: string) => {
     setSelectedPilots(prev => 
-      prev.includes(pilot) 
-        ? prev.filter(p => p !== pilot) 
-        : [...prev, pilot]
+      prev.includes(pilotName) 
+        ? prev.filter(p => p !== pilotName) 
+        : [...prev, pilotName]
     );
   };
 
@@ -317,20 +329,49 @@ const Dashboard = () => {
               If one of these pilots wins, the race is great by default. Never miss your favorite winning a race!
             </p>
             <div className="max-h-40 overflow-y-auto pr-2 flex flex-wrap gap-2">
-              {pilots2025.map(pilot => (
+              {sortedPilots.map(pilot => (
                 <div 
-                  key={pilot}
-                  onClick={() => handlePilotToggle(pilot)}
-                  className={`px-3 py-1.5 text-sm rounded-full cursor-pointer border transition-colors ${
-                    selectedPilots.includes(pilot) 
+                  key={pilot.name}
+                  onClick={() => handlePilotToggle(pilot.name)}
+                  className={`px-3 py-1.5 text-sm rounded-full cursor-pointer border transition-colors flex items-center gap-1.5 ${
+                    selectedPilots.includes(pilot.name) 
                       ? "bg-primary text-white border-primary" 
                       : "bg-white text-gray-700 border-gray-300 hover:bg-gray-100"
                   }`}
                 >
-                  {pilot}
+                  <span className="text-xs">{pilot.nationality}</span>
+                  <Flag className="w-3.5 h-3.5" />
+                  {pilot.name}
                 </div>
               ))}
             </div>
+          </div>
+          
+          {/* Hater Mode */}
+          <div className="p-4 bg-gray-50 rounded-xl space-y-3">
+            <div className="flex items-center justify-between">
+              <h3 className="font-medium">Hater Mode</h3>
+              <Switch
+                checked={haterModeEnabled}
+                onCheckedChange={setHaterModeEnabled}
+              />
+            </div>
+            <p className="text-sm text-gray-600">
+              If none of these drivers win, consider the race as at least Good/Great.
+            </p>
+            {haterModeEnabled && (
+              <div className="pt-2">
+                <Select value={haterModeLevel} onValueChange={setHaterModeLevel}>
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Select rating level" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="good">Good</SelectItem>
+                    <SelectItem value="great">Great</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            )}
           </div>
         </div>
       </div>
