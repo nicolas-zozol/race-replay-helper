@@ -1,7 +1,7 @@
 
-import { Share, Flag } from "lucide-react";
+import { Share, Flag, MessageSquare, Sliders, Crown, History } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -115,46 +115,121 @@ const Dashboard = () => {
 
   return (
     <div className="mx-auto max-w-md px-4 py-8 mb-20">
-      <Tabs defaultValue="progress" className="w-full">
-        <TabsList className="grid w-full grid-cols-2 mb-8">
-          <TabsTrigger value="progress">Progress</TabsTrigger>
-          <TabsTrigger value="milestones">Milestones</TabsTrigger>
+      <Tabs defaultValue="sms-telegram" className="w-full">
+        <TabsList className="grid w-full grid-cols-4 mb-8">
+          <TabsTrigger value="sms-telegram" className="flex flex-col items-center gap-1 py-3">
+            <MessageSquare className="h-4 w-4" />
+            <span className="text-xs">SMS & Telegram</span>
+          </TabsTrigger>
+          <TabsTrigger value="rating-settings" className="flex flex-col items-center gap-1 py-3">
+            <Sliders className="h-4 w-4" />
+            <span className="text-xs">Rating Settings</span>
+          </TabsTrigger>
+          <TabsTrigger value="season-pro" className="flex flex-col items-center gap-1 py-3">
+            <Crown className="h-4 w-4" />
+            <span className="text-xs">Season Pro</span>
+          </TabsTrigger>
+          <TabsTrigger value="race-history" className="flex flex-col items-center gap-1 py-3">
+            <History className="h-4 w-4" />
+            <span className="text-xs">Race History</span>
+          </TabsTrigger>
         </TabsList>
-      </Tabs>
 
-      <div className="bg-white rounded-3xl p-6 shadow-sm space-y-8">
-        <div className="space-y-6">
-          <h2 className="text-xl font-semibold">Rating Configuration</h2>
-          
-          <div className="space-y-6">
-            <div className="flex items-center space-x-2">
-              <Checkbox
-                id="dual-sliders"
-                checked={useDualSliders}
-                onCheckedChange={(checked) => setUseDualSliders(checked as boolean)}
-              />
-              <label
-                htmlFor="dual-sliders"
-                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-              >
-                Use two sliders for fine-tuned control
-              </label>
-            </div>
-
+        {/* SMS & Telegram Tab */}
+        <TabsContent value="sms-telegram" className="space-y-6">
+          <div className="bg-white rounded-3xl p-6 shadow-sm space-y-6">
+            <h2 className="text-xl font-semibold">Notification Settings</h2>
+            <p className="text-sm text-gray-600">
+              Configure how you receive notifications about races.
+            </p>
+            
             <div className="space-y-4">
-              <Label>Rating Thresholds</Label>
-              <div className="relative h-2 rounded-full"
-                   style={{
-                     background: `linear-gradient(to right, 
-                       #ea384c 0%, 
-                       #ea384c ${(lowerThreshold / 10) * 100}%, 
-                       #F97316 ${(lowerThreshold / 10) * 100}%, 
-                       #F97316 ${(upperThreshold / 10) * 100}%, 
-                       #4ADE80 ${(upperThreshold / 10) * 100}%, 
-                       #4ADE80 100%)`
-                   }}>
-                {useDualSliders ? (
-                  <>
+              <div className="flex items-center justify-between p-4 bg-gray-50 rounded-xl">
+                <div>
+                  <h3 className="font-medium">SMS Notifications</h3>
+                  <p className="text-sm text-gray-600">Receive race updates via SMS</p>
+                </div>
+                <Switch id="sms-notifications" />
+              </div>
+              
+              <div className="flex items-center justify-between p-4 bg-gray-50 rounded-xl">
+                <div>
+                  <h3 className="font-medium">Telegram Notifications</h3>
+                  <p className="text-sm text-gray-600">Receive race updates via Telegram</p>
+                </div>
+                <Switch id="telegram-notifications" />
+              </div>
+              
+              <div className="p-4 bg-gray-50 rounded-xl space-y-3">
+                <div className="flex items-center justify-between">
+                  <h3 className="font-medium">Don't Wait Option</h3>
+                  <Switch
+                    checked={dontWait}
+                    onCheckedChange={setDontWait}
+                  />
+                </div>
+                <p className="text-sm text-gray-600">
+                  You will receive the notification shortly after the race. You will kind of spoil of existence of red flags.
+                </p>
+              </div>
+            </div>
+          </div>
+        </TabsContent>
+
+        {/* Rating Settings Tab */}
+        <TabsContent value="rating-settings" className="space-y-6">
+          <div className="bg-white rounded-3xl p-6 shadow-sm space-y-6">
+            <h2 className="text-xl font-semibold">Rating Configuration</h2>
+            
+            <div className="space-y-6">
+              <div className="flex items-center space-x-2">
+                <Checkbox
+                  id="dual-sliders"
+                  checked={useDualSliders}
+                  onCheckedChange={(checked) => setUseDualSliders(checked as boolean)}
+                />
+                <label
+                  htmlFor="dual-sliders"
+                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                >
+                  Use two sliders for fine-tuned control
+                </label>
+              </div>
+
+              <div className="space-y-4">
+                <Label>Rating Thresholds</Label>
+                <div className="relative h-2 rounded-full"
+                     style={{
+                       background: `linear-gradient(to right, 
+                         #ea384c 0%, 
+                         #ea384c ${(lowerThreshold / 10) * 100}%, 
+                         #F97316 ${(lowerThreshold / 10) * 100}%, 
+                         #F97316 ${(upperThreshold / 10) * 100}%, 
+                         #4ADE80 ${(upperThreshold / 10) * 100}%, 
+                         #4ADE80 100%)`
+                     }}>
+                  {useDualSliders ? (
+                    <>
+                      <input
+                        type="range"
+                        min="1"
+                        max="10"
+                        value={lowerThreshold}
+                        onChange={(e) => handleLowerChange(Number(e.target.value))}
+                        className="absolute top-1/2 -translate-y-1/2 w-full h-8 appearance-none bg-transparent pointer-events-auto [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-gray-400 [&::-webkit-slider-thumb]:cursor-pointer [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-white [&::-moz-range-thumb]:border-2 [&::-moz-range-thumb]:border-gray-400 [&::-moz-range-thumb]:cursor-pointer"
+                        style={{ zIndex: 2 }}
+                      />
+                      <input
+                        type="range"
+                        min="1"
+                        max="10"
+                        value={upperThreshold}
+                        onChange={(e) => handleUpperChange(Number(e.target.value))}
+                        className="absolute top-1/2 -translate-y-1/2 w-full h-8 appearance-none bg-transparent pointer-events-auto [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-gray-400 [&::-webkit-slider-thumb]:cursor-pointer [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-white [&::-moz-range-thumb]:border-2 [&::-moz-range-thumb]:border-gray-400 [&::-moz-range-thumb]:cursor-pointer"
+                        style={{ zIndex: 1 }}
+                      />
+                    </>
+                  ) : (
                     <input
                       type="range"
                       min="1"
@@ -162,219 +237,226 @@ const Dashboard = () => {
                       value={lowerThreshold}
                       onChange={(e) => handleLowerChange(Number(e.target.value))}
                       className="absolute top-1/2 -translate-y-1/2 w-full h-8 appearance-none bg-transparent pointer-events-auto [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-gray-400 [&::-webkit-slider-thumb]:cursor-pointer [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-white [&::-moz-range-thumb]:border-2 [&::-moz-range-thumb]:border-gray-400 [&::-moz-range-thumb]:cursor-pointer"
-                      style={{ zIndex: 2 }}
                     />
-                    <input
-                      type="range"
-                      min="1"
-                      max="10"
-                      value={upperThreshold}
-                      onChange={(e) => handleUpperChange(Number(e.target.value))}
-                      className="absolute top-1/2 -translate-y-1/2 w-full h-8 appearance-none bg-transparent pointer-events-auto [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-gray-400 [&::-webkit-slider-thumb]:cursor-pointer [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-white [&::-moz-range-thumb]:border-2 [&::-moz-range-thumb]:border-gray-400 [&::-moz-range-thumb]:cursor-pointer"
-                      style={{ zIndex: 1 }}
-                    />
-                  </>
-                ) : (
-                  <input
-                    type="range"
-                    min="1"
-                    max="10"
-                    value={lowerThreshold}
-                    onChange={(e) => handleLowerChange(Number(e.target.value))}
-                    className="absolute top-1/2 -translate-y-1/2 w-full h-8 appearance-none bg-transparent pointer-events-auto [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-gray-400 [&::-webkit-slider-thumb]:cursor-pointer [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-white [&::-moz-range-thumb]:border-2 [&::-moz-range-thumb]:border-gray-400 [&::-moz-range-thumb]:cursor-pointer"
+                  )}
+                </div>
+                <div className="flex justify-between text-sm text-gray-500 mt-2">
+                  <div>Lower: {lowerThreshold}</div>
+                  <div>Upper: {upperThreshold}</div>
+                </div>
+              </div>
+
+              <div className="space-y-4">
+                <div>
+                  <Label>Message for rating below {lowerThreshold}</Label>
+                  <Input 
+                    value={badMessage}
+                    onChange={(e) => setBadMessage(e.target.value)}
                   />
-                )}
+                </div>
+                <div>
+                  <Label>Message for rating between {lowerThreshold} and {upperThreshold}</Label>
+                  <Input 
+                    value={okMessage}
+                    onChange={(e) => setOkMessage(e.target.value)}
+                  />
+                </div>
+                <div>
+                  <Label>Message for rating above {upperThreshold}</Label>
+                  <Input 
+                    value={greatMessage}
+                    onChange={(e) => setGreatMessage(e.target.value)}
+                  />
+                </div>
               </div>
-              <div className="flex justify-between text-sm text-gray-500 mt-2">
-                <div>Lower: {lowerThreshold}</div>
-                <div>Upper: {upperThreshold}</div>
+
+              <div className="space-y-4">
+                <Label>Current Rating: <span style={{ color: getRatingColor(rating) }} className="text-2xl font-bold">{rating}</span></Label>
+                <div className="relative w-full h-2 bg-gray-200 rounded-full cursor-pointer"
+                     onClick={(e) => {
+                       const rect = e.currentTarget.getBoundingClientRect();
+                       const x = e.clientX - rect.left;
+                       const newRating = Math.round((x / rect.width) * 9) + 1;
+                       handleRatingChange(Math.min(Math.max(newRating, 1), 10));
+                     }}>
+                  <div
+                    className="absolute inset-0 rounded-full transition-all duration-200"
+                    style={{
+                      width: `${(rating / 10) * 100}%`,
+                      backgroundColor: getRatingColor(rating),
+                    }}
+                  />
+                </div>
+                <div className="flex justify-between text-sm text-gray-500">
+                  <span>1</span>
+                  <span>10</span>
+                </div>
               </div>
             </div>
+          </div>
+        </TabsContent>
 
+        {/* Season Pro Tab */}
+        <TabsContent value="season-pro" className="space-y-6">
+          <div className="bg-white rounded-3xl p-6 shadow-sm space-y-6">
+            <h2 className="text-xl font-semibold">Season Pro Features</h2>
+            <p className="text-sm text-gray-600 mb-4">
+              Premium features available with your Season Pro subscription.
+            </p>
+            
+            {/* Safe for Kids Feature */}
+            <div className="p-4 bg-gray-50 rounded-xl space-y-3">
+              <div className="flex items-center justify-between">
+                <h3 className="font-medium">Safe for Kids</h3>
+                <Switch
+                  checked={safeForKids}
+                  onCheckedChange={setSafeForKids}
+                />
+              </div>
+              <p className="text-sm text-gray-600">
+                You will receive a message along with the rating if there is a major security concern.
+              </p>
+            </div>
+            
+            {/* Choose Other Competitions */}
+            <div className="p-4 bg-gray-50 rounded-xl space-y-3">
+              <h3 className="font-medium">Choose Other Competitions</h3>
+              <p className="text-sm text-gray-600 mb-3">
+                The system works for any competition. When available, you can opt in for motoGP or IndyCar.
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {["MotoGP", "IndyCar", "Formula E"].map(comp => (
+                  <div 
+                    key={comp}
+                    onClick={() => handleCompetitionToggle(comp)}
+                    className={`px-3 py-1.5 text-sm rounded-full cursor-pointer border transition-colors ${
+                      competitions.includes(comp) 
+                        ? "bg-primary text-white border-primary" 
+                        : "bg-white text-gray-700 border-gray-300 hover:bg-gray-100"
+                    }`}
+                  >
+                    {comp}
+                  </div>
+                ))}
+              </div>
+            </div>
+            
+            {/* Boring Moments to Skip */}
+            <div className="p-4 bg-gray-50 rounded-xl space-y-3">
+              <div className="flex items-center justify-between">
+                <h3 className="font-medium">Boring Moments to Skip</h3>
+                <Switch
+                  checked={boringMomentsToSkip}
+                  onCheckedChange={setBoringMomentsToSkip}
+                />
+              </div>
+              <p className="text-sm text-gray-600">
+                If and only if the race is less than great, you will receive some parts you can skip. Typically between 15th and 45th lap.
+              </p>
+              {boringMomentsToSkip && (
+                <div className="pt-2">
+                  <Select value={skipLevel} onValueChange={setSkipLevel}>
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder="Select level" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="boring">Boring parts</SelectItem>
+                      <SelectItem value="good">Good parts</SelectItem>
+                      <SelectItem value="great">Great parts</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              )}
+            </div>
+            
+            {/* Fan Mode */}
+            <div className="p-4 bg-gray-50 rounded-xl space-y-3">
+              <h3 className="font-medium">Fan Mode</h3>
+              <p className="text-sm text-gray-600 mb-3">
+                If one of these pilots wins, the race is great by default. Never miss your favorite winning a race!
+              </p>
+              <div className="max-h-40 overflow-y-auto pr-2 flex flex-wrap gap-2">
+                {sortedPilots.map(pilot => (
+                  <div 
+                    key={pilot.name}
+                    onClick={() => handlePilotToggle(pilot.name)}
+                    className={`px-3 py-1.5 text-sm rounded-full cursor-pointer border transition-colors flex items-center gap-1.5 ${
+                      selectedPilots.includes(pilot.name) 
+                        ? "bg-primary text-white border-primary" 
+                        : "bg-white text-gray-700 border-gray-300 hover:bg-gray-100"
+                    }`}
+                  >
+                    <span className="text-xs">{pilot.nationality}</span>
+                    <Flag className="w-3.5 h-3.5" />
+                    {pilot.name}
+                  </div>
+                ))}
+              </div>
+            </div>
+            
+            {/* Hater Mode */}
+            <div className="p-4 bg-gray-50 rounded-xl space-y-3">
+              <div className="flex items-center justify-between">
+                <h3 className="font-medium">Hater Mode</h3>
+                <Switch
+                  checked={haterModeEnabled}
+                  onCheckedChange={setHaterModeEnabled}
+                />
+              </div>
+              <p className="text-sm text-gray-600">
+                If none of these drivers win, consider the race as at least Good/Great.
+              </p>
+              {haterModeEnabled && (
+                <div className="pt-2">
+                  <Select value={haterModeLevel} onValueChange={setHaterModeLevel}>
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder="Select rating level" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="good">Good</SelectItem>
+                      <SelectItem value="great">Great</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              )}
+            </div>
+          </div>
+        </TabsContent>
+
+        {/* Race History Tab */}
+        <TabsContent value="race-history" className="space-y-6">
+          <div className="bg-white rounded-3xl p-6 shadow-sm">
+            <h2 className="text-xl font-semibold mb-6">Race History</h2>
             <div className="space-y-4">
-              <div>
-                <Label>Message for rating below {lowerThreshold}</Label>
-                <Input 
-                  value={badMessage}
-                  onChange={(e) => setBadMessage(e.target.value)}
-                />
-              </div>
-              <div>
-                <Label>Message for rating between {lowerThreshold} and {upperThreshold}</Label>
-                <Input 
-                  value={okMessage}
-                  onChange={(e) => setOkMessage(e.target.value)}
-                />
-              </div>
-              <div>
-                <Label>Message for rating above {upperThreshold}</Label>
-                <Input 
-                  value={greatMessage}
-                  onChange={(e) => setGreatMessage(e.target.value)}
-                />
-              </div>
-            </div>
-
-            <div className="space-y-4">
-              <Label>Current Rating: <span style={{ color: getRatingColor(rating) }} className="text-2xl font-bold">{rating}</span></Label>
-              <div className="relative w-full h-2 bg-gray-200 rounded-full cursor-pointer"
-                   onClick={(e) => {
-                     const rect = e.currentTarget.getBoundingClientRect();
-                     const x = e.clientX - rect.left;
-                     const newRating = Math.round((x / rect.width) * 9) + 1;
-                     handleRatingChange(Math.min(Math.max(newRating, 1), 10));
-                   }}>
-                <div
-                  className="absolute inset-0 rounded-full transition-all duration-200"
-                  style={{
-                    width: `${(rating / 10) * 100}%`,
-                    backgroundColor: getRatingColor(rating),
-                  }}
-                />
-              </div>
-              <div className="flex justify-between text-sm text-gray-500">
-                <span>1</span>
-                <span>10</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="border-t pt-6 space-y-6">
-          <h2 className="text-xl font-semibold">Premium Features</h2>
-          
-          {/* Safe for Kids Feature */}
-          <div className="p-4 bg-gray-50 rounded-xl space-y-3">
-            <div className="flex items-center justify-between">
-              <h3 className="font-medium">Safe for Kids</h3>
-              <Switch
-                checked={safeForKids}
-                onCheckedChange={setSafeForKids}
-              />
-            </div>
-            <p className="text-sm text-gray-600">
-              You will receive a message along with the rating if there is a major security concern.
-            </p>
-          </div>
-          
-          {/* Don't Wait Option */}
-          <div className="p-4 bg-gray-50 rounded-xl space-y-3">
-            <div className="flex items-center justify-between">
-              <h3 className="font-medium">Don't Wait Option</h3>
-              <Switch
-                checked={dontWait}
-                onCheckedChange={setDontWait}
-              />
-            </div>
-            <p className="text-sm text-gray-600">
-              You will receive the notification shortly after the race. You will kind of spoil of existence of red flags.
-            </p>
-          </div>
-          
-          {/* Choose Other Competitions */}
-          <div className="p-4 bg-gray-50 rounded-xl space-y-3">
-            <h3 className="font-medium">Choose Other Competitions</h3>
-            <p className="text-sm text-gray-600 mb-3">
-              The system works for any competition. When available, you can opt in for motoGP or IndyCar.
-            </p>
-            <div className="flex flex-wrap gap-2">
-              {["MotoGP", "IndyCar", "Formula E"].map(comp => (
-                <div 
-                  key={comp}
-                  onClick={() => handleCompetitionToggle(comp)}
-                  className={`px-3 py-1.5 text-sm rounded-full cursor-pointer border transition-colors ${
-                    competitions.includes(comp) 
-                      ? "bg-primary text-white border-primary" 
-                      : "bg-white text-gray-700 border-gray-300 hover:bg-gray-100"
-                  }`}
-                >
-                  {comp}
+              {[...Array(3)].map((_, index) => (
+                <div key={index} className="p-4 bg-gray-50 rounded-xl space-y-2">
+                  <div className="flex justify-between items-center">
+                    <h3 className="font-medium">
+                      {["Miami Grand Prix", "Monaco Grand Prix", "Spanish Grand Prix"][index]}
+                    </h3>
+                    <span className={`px-2 py-1 text-xs rounded-full ${
+                      [7, 9, 4][index] > upperThreshold 
+                        ? "bg-green-100 text-green-800" 
+                        : [7, 9, 4][index] > lowerThreshold 
+                          ? "bg-orange-100 text-orange-800" 
+                          : "bg-red-100 text-red-800"
+                    }`}>
+                      Rating: {[7, 9, 4][index]}/10
+                    </span>
+                  </div>
+                  <p className="text-sm text-gray-600">
+                    {["Great race with exciting battles throughout.", "An instant classic with multiple lead changes!", "A bit dull, mostly processional."][index]}
+                  </p>
+                  <div className="flex justify-between items-center text-xs text-gray-500 pt-2">
+                    <span>Date: {["May 7, 2023", "May 28, 2023", "June 4, 2023"][index]}</span>
+                    <Button variant="outline" size="sm" className="h-7 text-xs">View Details</Button>
+                  </div>
                 </div>
               ))}
             </div>
           </div>
-          
-          {/* Boring Moments to Skip */}
-          <div className="p-4 bg-gray-50 rounded-xl space-y-3">
-            <div className="flex items-center justify-between">
-              <h3 className="font-medium">Boring Moments to Skip</h3>
-              <Switch
-                checked={boringMomentsToSkip}
-                onCheckedChange={setBoringMomentsToSkip}
-              />
-            </div>
-            <p className="text-sm text-gray-600">
-              If and only if the race is less than great, you will receive some parts you can skip. Typically between 15th and 45th lap.
-            </p>
-            {boringMomentsToSkip && (
-              <div className="pt-2">
-                <Select value={skipLevel} onValueChange={setSkipLevel}>
-                  <SelectTrigger className="w-full">
-                    <SelectValue placeholder="Select level" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="boring">Boring parts</SelectItem>
-                    <SelectItem value="good">Good parts</SelectItem>
-                    <SelectItem value="great">Great parts</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-            )}
-          </div>
-          
-          {/* Fan Mode */}
-          <div className="p-4 bg-gray-50 rounded-xl space-y-3">
-            <h3 className="font-medium">Fan Mode</h3>
-            <p className="text-sm text-gray-600 mb-3">
-              If one of these pilots wins, the race is great by default. Never miss your favorite winning a race!
-            </p>
-            <div className="max-h-40 overflow-y-auto pr-2 flex flex-wrap gap-2">
-              {sortedPilots.map(pilot => (
-                <div 
-                  key={pilot.name}
-                  onClick={() => handlePilotToggle(pilot.name)}
-                  className={`px-3 py-1.5 text-sm rounded-full cursor-pointer border transition-colors flex items-center gap-1.5 ${
-                    selectedPilots.includes(pilot.name) 
-                      ? "bg-primary text-white border-primary" 
-                      : "bg-white text-gray-700 border-gray-300 hover:bg-gray-100"
-                  }`}
-                >
-                  <span className="text-xs">{pilot.nationality}</span>
-                  <Flag className="w-3.5 h-3.5" />
-                  {pilot.name}
-                </div>
-              ))}
-            </div>
-          </div>
-          
-          {/* Hater Mode */}
-          <div className="p-4 bg-gray-50 rounded-xl space-y-3">
-            <div className="flex items-center justify-between">
-              <h3 className="font-medium">Hater Mode</h3>
-              <Switch
-                checked={haterModeEnabled}
-                onCheckedChange={setHaterModeEnabled}
-              />
-            </div>
-            <p className="text-sm text-gray-600">
-              If none of these drivers win, consider the race as at least Good/Great.
-            </p>
-            {haterModeEnabled && (
-              <div className="pt-2">
-                <Select value={haterModeLevel} onValueChange={setHaterModeLevel}>
-                  <SelectTrigger className="w-full">
-                    <SelectValue placeholder="Select rating level" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="good">Good</SelectItem>
-                    <SelectItem value="great">Great</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
+        </TabsContent>
+      </Tabs>
 
       <div className="fixed bottom-0 left-0 right-0 h-16 bg-white border-t flex items-center justify-around px-12">
         <button className="flex flex-col items-center gap-1 text-gray-400">
