@@ -57,6 +57,12 @@ const Dashboard = () => {
   const [competitions, setCompetitions] = useState<string[]>([]);
   const [haterModeEnabled, setHaterModeEnabled] = useState(false);
   const [haterModeLevel, setHaterModeLevel] = useState("good");
+  
+  // SMS & Telegram states
+  const [smsEnabled, setSmsEnabled] = useState(false);
+  const [telegramEnabled, setTelegramEnabled] = useState(false);
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [telegramHandle, setTelegramHandle] = useState("");
 
   const handleRatingChange = (newRating: number) => {
     setRating(newRating);
@@ -143,34 +149,63 @@ const Dashboard = () => {
               Configure how you receive notifications about races.
             </p>
             
-            <div className="space-y-4">
-              <div className="flex items-center justify-between p-4 bg-gray-50 rounded-xl">
-                <div>
-                  <h3 className="font-medium">SMS Notifications</h3>
-                  <p className="text-sm text-gray-600">Receive race updates via SMS</p>
-                </div>
-                <Switch id="sms-notifications" />
-              </div>
-              
-              <div className="flex items-center justify-between p-4 bg-gray-50 rounded-xl">
-                <div>
-                  <h3 className="font-medium">Telegram Notifications</h3>
-                  <p className="text-sm text-gray-600">Receive race updates via Telegram</p>
-                </div>
-                <Switch id="telegram-notifications" />
-              </div>
-              
+            <div className="space-y-6">
+              {/* SMS Notifications */}
               <div className="p-4 bg-gray-50 rounded-xl space-y-3">
                 <div className="flex items-center justify-between">
-                  <h3 className="font-medium">Don't Wait Option</h3>
+                  <h3 className="font-medium">SMS Notifications</h3>
                   <Switch
-                    checked={dontWait}
-                    onCheckedChange={setDontWait}
+                    checked={smsEnabled}
+                    onCheckedChange={setSmsEnabled}
                   />
                 </div>
-                <p className="text-sm text-gray-600">
-                  You will receive the notification shortly after the race. You will kind of spoil of existence of red flags.
-                </p>
+                <p className="text-sm text-gray-600">Receive race updates via SMS</p>
+                
+                {smsEnabled && (
+                  <div className="pt-3">
+                    <Label htmlFor="phone-number" className="text-sm font-medium mb-1.5 block">
+                      Phone Number
+                    </Label>
+                    <Input
+                      id="phone-number"
+                      placeholder="+1 234 567 8901"
+                      value={phoneNumber}
+                      onChange={(e) => setPhoneNumber(e.target.value)}
+                    />
+                    <p className="text-xs text-gray-500 mt-1.5">
+                      Enter your number with country code
+                    </p>
+                  </div>
+                )}
+              </div>
+              
+              {/* Telegram Notifications */}
+              <div className="p-4 bg-gray-50 rounded-xl space-y-3">
+                <div className="flex items-center justify-between">
+                  <h3 className="font-medium">Telegram Notifications</h3>
+                  <Switch
+                    checked={telegramEnabled}
+                    onCheckedChange={setTelegramEnabled}
+                  />
+                </div>
+                <p className="text-sm text-gray-600">Receive race updates via Telegram</p>
+                
+                {telegramEnabled && (
+                  <div className="pt-3">
+                    <Label htmlFor="telegram-handle" className="text-sm font-medium mb-1.5 block">
+                      Telegram Username
+                    </Label>
+                    <Input
+                      id="telegram-handle"
+                      placeholder="@yourusername"
+                      value={telegramHandle}
+                      onChange={(e) => setTelegramHandle(e.target.value)}
+                    />
+                    <p className="text-xs text-gray-500 mt-1.5">
+                      Enter your Telegram username without @
+                    </p>
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -315,6 +350,20 @@ const Dashboard = () => {
               </div>
               <p className="text-sm text-gray-600">
                 You will receive a message along with the rating if there is a major security concern.
+              </p>
+            </div>
+            
+            {/* Don't Wait Option */}
+            <div className="p-4 bg-gray-50 rounded-xl space-y-3">
+              <div className="flex items-center justify-between">
+                <h3 className="font-medium">Don't Wait Option</h3>
+                <Switch
+                  checked={dontWait}
+                  onCheckedChange={setDontWait}
+                />
+              </div>
+              <p className="text-sm text-gray-600">
+                You will receive the notification shortly after the race. You will kind of spoil of existence of red flags.
               </p>
             </div>
             
