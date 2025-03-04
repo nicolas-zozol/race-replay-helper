@@ -1,4 +1,3 @@
-
 import { Share, Flag, MessageSquare, Sliders, Crown, History } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
@@ -10,7 +9,6 @@ import { useState } from "react";
 import { toast } from "@/hooks/use-toast";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
-// Define pilot type with nationality
 interface Pilot {
   name: string;
   lastName: string;
@@ -36,7 +34,6 @@ const pilots2025: Pilot[] = [
   { name: "Zhou Guanyu", lastName: "Zhou", nationality: "CN" }
 ];
 
-// Sort pilots by last name
 const sortedPilots = [...pilots2025].sort((a, b) => a.lastName.localeCompare(b.lastName));
 
 const Dashboard = () => {
@@ -48,7 +45,6 @@ const Dashboard = () => {
   const [greatMessage, setGreatMessage] = useState("it's great");
   const [useDualSliders, setUseDualSliders] = useState(false);
   
-  // Feature states
   const [safeForKids, setSafeForKids] = useState(false);
   const [dontWait, setDontWait] = useState(false);
   const [boringMomentsToSkip, setBoringMomentsToSkip] = useState(false);
@@ -57,8 +53,8 @@ const Dashboard = () => {
   const [competitions, setCompetitions] = useState<string[]>([]);
   const [haterModeEnabled, setHaterModeEnabled] = useState(false);
   const [haterModeLevel, setHaterModeLevel] = useState("good");
+  const [hatedPilots, setHatedPilots] = useState<string[]>([]);
   
-  // SMS & Telegram states
   const [smsEnabled, setSmsEnabled] = useState(false);
   const [telegramEnabled, setTelegramEnabled] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -119,6 +115,14 @@ const Dashboard = () => {
     );
   };
 
+  const handleHatedPilotToggle = (pilotName: string) => {
+    setHatedPilots(prev => 
+      prev.includes(pilotName) 
+        ? prev.filter(p => p !== pilotName) 
+        : [...prev, pilotName]
+    );
+  };
+
   return (
     <div className="mx-auto max-w-md px-4 py-8 mb-20">
       <Tabs defaultValue="sms-telegram" className="w-full">
@@ -141,7 +145,6 @@ const Dashboard = () => {
           </TabsTrigger>
         </TabsList>
 
-        {/* SMS & Telegram Tab */}
         <TabsContent value="sms-telegram" className="space-y-6">
           <div className="bg-white rounded-3xl p-6 shadow-sm space-y-6">
             <h2 className="text-xl font-semibold">Notification Settings</h2>
@@ -150,7 +153,6 @@ const Dashboard = () => {
             </p>
             
             <div className="space-y-6">
-              {/* SMS Notifications */}
               <div className="p-4 bg-gray-50 rounded-xl space-y-3">
                 <div className="flex items-center justify-between">
                   <h3 className="font-medium">SMS Notifications</h3>
@@ -179,7 +181,6 @@ const Dashboard = () => {
                 )}
               </div>
               
-              {/* Telegram Notifications */}
               <div className="p-4 bg-gray-50 rounded-xl space-y-3">
                 <div className="flex items-center justify-between">
                   <h3 className="font-medium">Telegram Notifications</h3>
@@ -211,7 +212,6 @@ const Dashboard = () => {
           </div>
         </TabsContent>
 
-        {/* Rating Settings Tab */}
         <TabsContent value="rating-settings" className="space-y-6">
           <div className="bg-white rounded-3xl p-6 shadow-sm space-y-6">
             <h2 className="text-xl font-semibold">Rating Configuration</h2>
@@ -331,7 +331,6 @@ const Dashboard = () => {
           </div>
         </TabsContent>
 
-        {/* Season Pro Tab */}
         <TabsContent value="season-pro" className="space-y-6">
           <div className="bg-white rounded-3xl p-6 shadow-sm space-y-6">
             <h2 className="text-xl font-semibold">Season Pro Features</h2>
@@ -339,7 +338,6 @@ const Dashboard = () => {
               Premium features available with your Season Pro subscription.
             </p>
             
-            {/* Safe for Kids Feature */}
             <div className="p-4 bg-gray-50 rounded-xl space-y-3">
               <div className="flex items-center justify-between">
                 <h3 className="font-medium">Safe for Kids</h3>
@@ -353,7 +351,6 @@ const Dashboard = () => {
               </p>
             </div>
             
-            {/* Don't Wait Option */}
             <div className="p-4 bg-gray-50 rounded-xl space-y-3">
               <div className="flex items-center justify-between">
                 <h3 className="font-medium">Don't Wait Option</h3>
@@ -367,7 +364,6 @@ const Dashboard = () => {
               </p>
             </div>
             
-            {/* Choose Other Competitions */}
             <div className="p-4 bg-gray-50 rounded-xl space-y-3">
               <h3 className="font-medium">Choose Other Competitions</h3>
               <p className="text-sm text-gray-600 mb-3">
@@ -390,7 +386,6 @@ const Dashboard = () => {
               </div>
             </div>
             
-            {/* Boring Moments to Skip */}
             <div className="p-4 bg-gray-50 rounded-xl space-y-3">
               <div className="flex items-center justify-between">
                 <h3 className="font-medium">Boring Moments to Skip</h3>
@@ -418,7 +413,6 @@ const Dashboard = () => {
               )}
             </div>
             
-            {/* Fan Mode */}
             <div className="p-4 bg-gray-50 rounded-xl space-y-3">
               <h3 className="font-medium">Fan Mode</h3>
               <p className="text-sm text-gray-600 mb-3">
@@ -427,7 +421,7 @@ const Dashboard = () => {
               <div className="max-h-40 overflow-y-auto pr-2 flex flex-wrap gap-2">
                 {sortedPilots.map(pilot => (
                   <div 
-                    key={pilot.name}
+                    key={`fan-${pilot.name}`}
                     onClick={() => handlePilotToggle(pilot.name)}
                     className={`px-3 py-1.5 text-sm rounded-full cursor-pointer border transition-colors flex items-center gap-1.5 ${
                       selectedPilots.includes(pilot.name) 
@@ -443,7 +437,6 @@ const Dashboard = () => {
               </div>
             </div>
             
-            {/* Hater Mode */}
             <div className="p-4 bg-gray-50 rounded-xl space-y-3">
               <div className="flex items-center justify-between">
                 <h3 className="font-medium">Hater Mode</h3>
@@ -456,23 +449,46 @@ const Dashboard = () => {
                 If none of these drivers win, consider the race as at least Good/Great.
               </p>
               {haterModeEnabled && (
-                <div className="pt-2">
-                  <Select value={haterModeLevel} onValueChange={setHaterModeLevel}>
-                    <SelectTrigger className="w-full">
-                      <SelectValue placeholder="Select rating level" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="good">Good</SelectItem>
-                      <SelectItem value="great">Great</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
+                <>
+                  <div className="pt-2">
+                    <Select value={haterModeLevel} onValueChange={setHaterModeLevel}>
+                      <SelectTrigger className="w-full">
+                        <SelectValue placeholder="Select rating level" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="good">Good</SelectItem>
+                        <SelectItem value="great">Great</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className="pt-3">
+                    <p className="text-sm text-gray-600 mb-3">
+                      Select the drivers you don't want to win:
+                    </p>
+                    <div className="max-h-40 overflow-y-auto pr-2 flex flex-wrap gap-2">
+                      {sortedPilots.map(pilot => (
+                        <div 
+                          key={`hater-${pilot.name}`}
+                          onClick={() => handleHatedPilotToggle(pilot.name)}
+                          className={`px-3 py-1.5 text-sm rounded-full cursor-pointer border transition-colors flex items-center gap-1.5 ${
+                            hatedPilots.includes(pilot.name) 
+                              ? "bg-destructive text-white border-destructive" 
+                              : "bg-white text-gray-700 border-gray-300 hover:bg-gray-100"
+                          }`}
+                        >
+                          <span className="text-xs">{pilot.nationality}</span>
+                          <Flag className="w-3.5 h-3.5" />
+                          {pilot.name}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </>
               )}
             </div>
           </div>
         </TabsContent>
 
-        {/* Race History Tab */}
         <TabsContent value="race-history" className="space-y-6">
           <div className="bg-white rounded-3xl p-6 shadow-sm">
             <h2 className="text-xl font-semibold mb-6">Race History</h2>
